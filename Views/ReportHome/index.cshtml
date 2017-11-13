@@ -1,0 +1,60 @@
+﻿@model OnlineStore.Models.SalesReportModel
+@{
+    ViewBag.Title = "Report Page";
+}
+
+<h1>This is a report page!</h1>
+
+@using (Html.BeginForm())
+{
+    <input type="submit" value="Get Report" />
+    @Html.DropDownListFor(m => m.SelectedState, Model.States.Select(x => new SelectListItem { Value = x, Text = x }))
+    <h1>Here is a List of The Top Selling Products in @Model.SelectedState</h1>
+    foreach (var topSale in Model.TopSalesByDollar)
+    {
+       
+    }
+    foreach (var topSale in Model.TopSalesByQuantity)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th> Product Name</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@topSale.ProductID</td>
+                    <td>@topSale.ProductName</td>
+                    <td>@topSale.Quantity</td>
+                </tr>
+
+            </tbody>
+        </table>
+    }
+
+    <h1>Here is list of products by their total sales in @Model.SelectedState!</h1>
+    
+    foreach (var topSale in Model.TopSalesByDollar)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@topSale.ProductID</td>
+                    <td>@topSale.ProductName</td>
+                    <td>@topSale.Total</td>
+                </tr>
+
+            </tbody>
+        </table>
+    }
+}

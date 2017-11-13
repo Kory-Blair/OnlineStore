@@ -1,0 +1,31 @@
+﻿@model IEnumerable<OnlineStore.Models.Products>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Products</h2>
+
+<div class="row">
+    @foreach (var product in Model)
+    {
+        <div class="col-xs-4">
+            <div class="well">
+                <h2>@product.name</h2>
+                <img class="img-circle" style="max-height:229px" src="@product.image" />
+                <p class="text-right">@product.price.ToString("C")</p>
+            </div>
+            @using (Html.BeginForm("Index", "Product", FormMethod.Post, new { @class = "myClass" }))
+            {
+                <input name="id" type="hidden" value="@product.id" />
+
+                <input name="name" type="hidden" value="@product.name" />
+                <input name="price" type="hidden" value="@product.price" />
+                <input type="submit" class="btn btn-primary" value="Get this" />
+                @Html.ActionLink("More Info", "Details", new { id = product.id }, new { @class = "btn btn-default" })
+            }
+            
+        </div>
+    }
+    
+</div>
+
