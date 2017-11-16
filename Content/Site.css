@@ -1,9 +1,19 @@
 ﻿.jumbotron{
     background-color:aliceblue;
 }
-.well{background-color:aliceblue;
+#burningEarth {
+    width:369px;
+    margin-left:50px;
 }
-
+.well{background-color:aliceblue;
+      margin-top:34px;
+      height: 360px;
+      width: 320px;
+}
+.img-circle{
+    
+   
+}
 body {
     padding-top: 50px;
     padding-bottom: 20px;
@@ -44,4 +54,7 @@ textarea {
 }
 .btn-default:hover{
     background-color:lightgrey;
+}
+div p{
+    font:bold;
 }

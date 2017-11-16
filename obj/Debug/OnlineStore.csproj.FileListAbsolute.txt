@@ -40,3 +40,7 @@ C:\Users\kory\source\repos\OnlineStore\OnlineStore\obj\Debug\OnlineStore.csprojR
 C:\Users\kory\source\repos\OnlineStore\OnlineStore\obj\Debug\OnlineStore.csproj.CoreCompileInputs.cache
 C:\Users\kory\source\repos\OnlineStore\OnlineStore\obj\Debug\OnlineStore.dll
 C:\Users\kory\source\repos\OnlineStore\OnlineStore\obj\Debug\OnlineStore.pdb
+C:\Users\kory\source\repos\OnlineStore\OnlineStore\bin\EntityFramework.dll
+C:\Users\kory\source\repos\OnlineStore\OnlineStore\bin\EntityFramework.SqlServer.dll
+C:\Users\kory\source\repos\OnlineStore\OnlineStore\bin\EntityFramework.xml
+C:\Users\kory\source\repos\OnlineStore\OnlineStore\bin\EntityFramework.SqlServer.xml

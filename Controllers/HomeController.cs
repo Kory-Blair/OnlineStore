@@ -15,14 +15,14 @@ namespace OnlineStore.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "A little bit about ISRL:";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Have some questions? Comments? Want to work for ITRL? Contact us!";
 
             return View();
         }

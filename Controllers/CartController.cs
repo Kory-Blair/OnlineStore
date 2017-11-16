@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnlineStore.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,7 +9,19 @@ namespace OnlineStore.Controllers
 {
     public class CartController : Controller
     {
-        
+
+        protected OnlineStoreEntities db = new OnlineStoreEntities();
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+
         // GET: Cart
         public ActionResult Index()
         {

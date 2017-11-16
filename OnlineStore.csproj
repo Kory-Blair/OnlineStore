@@ -46,6 +46,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -53,6 +59,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -152,8 +160,41 @@
     </Compile>
     <Compile Include="Models\cart.cs" />
     <Compile Include="Models\CheckOut.cs" />
+    <Compile Include="Models\Customization.cs">
+      <DependentUpon>OnlineStoreModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CustomizationOption.cs">
+      <DependentUpon>OnlineStoreModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OnlineStoreModels.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnlineStoreModels.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OnlineStoreModels.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnlineStoreModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OnlineStoreModels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OnlineStoreModels.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\Products.cs" />
+    <Compile Include="Models\Purchase.cs">
+      <DependentUpon>OnlineStoreModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Recurrence.cs">
+      <DependentUpon>OnlineStoreModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SalesReportModel.cs" />
+    <Compile Include="Models\Service.cs">
+      <DependentUpon>OnlineStoreModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ServiceRecurrence.cs">
+      <DependentUpon>OnlineStoreModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -164,13 +205,34 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\bucket.jpg" />
+    <Content Include="Images\crying.jpg" />
     <Content Include="Images\earthonfire.jpg" />
+    <Content Include="Images\pizzaandbeer.jpg" />
     <Content Include="Images\puppies.jpg" />
+    <Content Include="Images\shout.jpg" />
     <Content Include="Images\slap.jpg" />
+    <Content Include="Images\welcometohell.jpg" />
+    <Content Include="Models\OnlineStoreModels.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>OnlineStoreModels.Context.cs</LastGenOutput>
+      <DependentUpon>OnlineStoreModels.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\OnlineStoreModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OnlineStoreModels.edmx</DependentUpon>
+      <LastGenOutput>OnlineStoreModels.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EntityDeploy Include="Models\OnlineStoreModels.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OnlineStoreModels.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\OnlineStoreModels.edmx.diagram">
+      <DependentUpon>OnlineStoreModels.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -218,6 +280,9 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

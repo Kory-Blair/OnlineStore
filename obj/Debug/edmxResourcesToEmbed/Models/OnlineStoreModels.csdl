@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OnlineStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="OnlineStoreEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Customizations" EntityType="OnlineStoreModel.Customization" />
+    <EntitySet Name="CustomizationOptions" EntityType="OnlineStoreModel.CustomizationOption" />
+    <EntitySet Name="Recurrences" EntityType="OnlineStoreModel.Recurrence" />
+    <EntitySet Name="Services" EntityType="OnlineStoreModel.Service" />
+    <EntitySet Name="ServiceRecurrences" EntityType="OnlineStoreModel.ServiceRecurrence" />
+    <AssociationSet Name="FK_Customization_Service" Association="OnlineStoreModel.FK_Customization_Service">
+      <End Role="Service" EntitySet="Services" />
+      <End Role="Customization" EntitySet="Customizations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceCustomization" Association="OnlineStoreModel.FK_ServiceCustomization">
+      <End Role="Customization" EntitySet="Customizations" />
+      <End Role="CustomizationOption" EntitySet="CustomizationOptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceRecurrence_Recurrence" Association="OnlineStoreModel.FK_ServiceRecurrence_Recurrence">
+      <End Role="Recurrence" EntitySet="Recurrences" />
+      <End Role="ServiceRecurrence" EntitySet="ServiceRecurrences" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceRecurrence_Service" Association="OnlineStoreModel.FK_ServiceRecurrence_Service">
+      <End Role="Service" EntitySet="Services" />
+      <End Role="ServiceRecurrence" EntitySet="ServiceRecurrences" />
+    </AssociationSet>
+    <EntitySet Name="Purchases" EntityType="OnlineStoreModel.Purchase" />
+  </EntityContainer>
+  <EntityType Name="Customization">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ServiceID" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Service" Relationship="OnlineStoreModel.FK_Customization_Service" FromRole="Customization" ToRole="Service" />
+    <NavigationProperty Name="CustomizationOptions" Relationship="OnlineStoreModel.FK_ServiceCustomization" FromRole="Customization" ToRole="CustomizationOption" />
+  </EntityType>
+  <EntityType Name="CustomizationOption">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomizationId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Customization" Relationship="OnlineStoreModel.FK_ServiceCustomization" FromRole="CustomizationOption" ToRole="Customization" />
+  </EntityType>
+  <EntityType Name="Recurrence">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Option" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="Price_Multiplier" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Savings" Type="Int32" />
+    <NavigationProperty Name="ServiceRecurrences" Relationship="OnlineStoreModel.FK_ServiceRecurrence_Recurrence" FromRole="Recurrence" ToRole="ServiceRecurrence" />
+  </EntityType>
+  <EntityType Name="Service">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="ShortDescription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Customizations" Relationship="OnlineStoreModel.FK_Customization_Service" FromRole="Service" ToRole="Customization" />
+    <NavigationProperty Name="ServiceRecurrences" Relationship="OnlineStoreModel.FK_ServiceRecurrence_Service" FromRole="Service" ToRole="ServiceRecurrence" />
+  </EntityType>
+  <EntityType Name="ServiceRecurrence">
+    <Key>
+      <PropertyRef Name="ServiceID" />
+      <PropertyRef Name="RecurrenceID" />
+    </Key>
+    <Property Name="ServiceID" Type="Int32" Nullable="false" />
+    <Property Name="RecurrenceID" Type="Int32" Nullable="false" />
+    <Property Name="Frequency" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PriceMultiplier" Type="Int32" />
+    <NavigationProperty Name="Recurrence" Relationship="OnlineStoreModel.FK_ServiceRecurrence_Recurrence" FromRole="ServiceRecurrence" ToRole="Recurrence" />
+    <NavigationProperty Name="Service" Relationship="OnlineStoreModel.FK_ServiceRecurrence_Service" FromRole="ServiceRecurrence" ToRole="Service" />
+  </EntityType>
+  <Association Name="FK_Customization_Service">
+    <End Type="OnlineStoreModel.Service" Role="Service" Multiplicity="1" />
+    <End Type="OnlineStoreModel.Customization" Role="Customization" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Customization">
+        <PropertyRef Name="ServiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiceCustomization">
+    <End Type="OnlineStoreModel.Customization" Role="Customization" Multiplicity="1" />
+    <End Type="OnlineStoreModel.CustomizationOption" Role="CustomizationOption" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customization">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustomizationOption">
+        <PropertyRef Name="CustomizationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiceRecurrence_Recurrence">
+    <End Type="OnlineStoreModel.Recurrence" Role="Recurrence" Multiplicity="1" />
+    <End Type="OnlineStoreModel.ServiceRecurrence" Role="ServiceRecurrence" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Recurrence">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ServiceRecurrence">
+        <PropertyRef Name="RecurrenceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiceRecurrence_Service">
+    <End Type="OnlineStoreModel.Service" Role="Service" Multiplicity="1" />
+    <End Type="OnlineStoreModel.ServiceRecurrence" Role="ServiceRecurrence" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ServiceRecurrence">
+        <PropertyRef Name="ServiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Purchase">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+    <Property Name="PurchaseId" Nullable="false" Type="Int32" />
+    <Property Name="ServiceName" MaxLength="100" FixedLength="false" Unicode="true" Type="String" />
+    <Property Name="Price" Precision="19" Scale="4" Type="Decimal" />
+  </EntityType>
+</Schema>

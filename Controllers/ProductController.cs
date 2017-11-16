@@ -1,6 +1,5 @@
 ﻿using OnlineStore.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,89 +10,80 @@ namespace OnlineStore.Controllers
     {
         public ActionResult Index()
         {
-            List<Models.Products> products = new List<Models.Products>();
-
-            products.Add(new Models.Products
-            {
-                id = 1,
-                name = "Slap",
-                price = 14.99m,
-                description = "Sometimes we all need a hard slap to the face to wake us up and convince us that we aren't in some all consuming nightmare. Allow our trained technicans to bring you back to reality by causing you a substancial amount of pain.",
-                image = "/images/slap.jpg",
-                shortDescription = "A hard slap to the face."
-            });
-
-            products.Add(new Models.Products
-            {
-                id = 2,
-                name = "Splash of Water",
-                price = 29.99m,
-                description = "Nothing wakes you up from the zombie-like state that you know as your everyday life like a bucket of cold water.",
-                image = "/images/bucket.jpg",
-                shortDescription = "A bucket of cold water to the face."
-            });
-
-            products.Add(new Models.Products
-            {
-                id = 3,
-                name = "Puppies",
-                price = 89.99m,
-                description = "What could be better for restoring your spirits and bringing joy back to your heart than cuddling with an adorable puppy?",
-                image = "/images/puppies.jpg",
-                shortDescription = "Puppies!!!"
-            });
-            
-            return View(products);
+            return View(db.Services);
         }
 
-        [HttpPost]
-        public ActionResult Index(int id, string name, decimal price)
-       {
-            {
-                Response.Cookies.Add(new HttpCookie("productID", id.ToString()));
-                Response.Cookies.Add(new HttpCookie("productName", name));
-                Response.Cookies.Add(new HttpCookie("productPrice", price.ToString()));
-                return RedirectToAction("Index", "Cart");
-            }
-        }
-        
-        public ActionResult Details(int id)
+        protected OnlineStoreEntities db = new OnlineStoreEntities();
+
+        protected override void Dispose(bool disposing)
         {
-            Products p = null;
-            if(id == 1)
+            if (disposing)
             {
-                p = new Models.Products
-                {
-                    id = 1,
-                    name = "Slap",
-                    price = 14.99m,
-                    description = "Sometimes we all need a hard slap to the face to wake us up and convince us that we aren't in some all consuming nightmare. Allow our trained technicans to bring you back to reality by causing you a substancial amount of pain.",
-                    image = "/images/slap.jpg",
-                    shortDescription = "A hard slap to the face."
-                };
-            } else if (id == 2) { 
-                p = new Models.Products
-                {
-                    id = 2,
-                    name = "Splash of Water",
-                    price = 29.99m,
-                    description = "Nothing wakes you up from the zombie-like state that you know as your everyday life like a bucket of cold water.",
-                    image = "/images/bucket.jpg",
-                    shortDescription = "A bucket of cold water to the face."
-                };
-            } else
-            {
-                p = new Models.Products
-                {
-                    id = 3,
-                    name = "Puppies",
-                    price = 89.99m,
-                    description = "What could be better for restoring your spirits and bringing joy back to your heart than cuddling with an adorable puppy?",
-                    image = "/images/puppies.jpg",
-                    shortDescription = "Puppies!!!"
-                };
+                db.Dispose();
             }
-            return View(p);
+            base.Dispose(disposing);
         }
+
+        public ActionResult Details(int? id)
+        {
+            return View(db.Services.Find(id));
+        }
+
+
     }
 }
+
+
+//        [HttpPost]
+//        public ActionResult Index(Service model)
+//        {
+//            //TODO: Save the posted information to a database!
+//            Guid cartID;
+//            cart cart = null;
+//            if (Request.Cookies.AllKeys.Contains("cartID"))
+//            {
+
+//                cartID = Guid.Parse(Request.Cookies["cartID"].Value);
+//                cart = db.carts.Find(cartID);
+//            }
+//            if (cart == null)
+//            {
+//                cartID = Guid.NewGuid();
+//                cart = new cart
+//                {
+//                    ID = cartID,
+//                    DateCreated = DateTime.UtcNow,
+//                    DateLastModified = DateTime.UtcNow
+//                };
+//                db.Carts.Add(cart);
+//                Response.AppendCookie(new HttpCookie("cartID", cartID.ToString()));
+//            }
+
+//            CartProduct product = cart.CartProducts.FirstOrDefault(x => x.ProductID == model.Id);
+//            if (product == null)
+//            {
+//                product = new CartProduct
+//                {
+//                    DateCreated = DateTime.UtcNow,
+//                    DateLastModified = DateTime.UtcNow,
+//                    ProductID = model.Id,
+//                    Quantity = 0
+//                };
+//                cart.CartProducts.Add(product);
+//            }
+
+//            product.Quantity += model.Quantity ?? 1;
+//            product.DateLastModified = DateTime.UtcNow;
+//            cart.DateLastModified = DateTime.UtcNow;
+
+//            db.SaveChanges();
+
+
+//            TempData.Add("NewItem", model.Name);
+
+//            //TODO: build up the cart controller!
+//            return RedirectToAction("Index", "Cart");
+
+//        }
+//    }
+//}

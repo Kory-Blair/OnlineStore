@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OnlineStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Customization">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ServiceID" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="CustomizationOptions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomizationId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Price" Type="money" />
+    <Property Name="Description" Type="ntext" />
+  </EntityType>
+  <EntityType Name="Purchase">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
+    <Property Name="PurchaseId" Nullable="false" Type="int" />
+    <Property Name="ServiceName" MaxLength="100" Type="nvarchar" />
+    <Property Name="Price" Type="money" />
+  </EntityType>
+  <EntityType Name="Recurrence">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Option" Type="nvarchar" MaxLength="1" />
+    <Property Name="Price Multiplier" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Savings" Type="int" />
+  </EntityType>
+  <EntityType Name="Service">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Price" Type="money" />
+    <Property Name="Description" Type="ntext" />
+    <Property Name="Image" Type="nvarchar" MaxLength="512" />
+    <Property Name="ShortDescription" Type="nvarchar" MaxLength="1000" />
+  </EntityType>
+  <EntityType Name="ServiceRecurrence">
+    <Key>
+      <PropertyRef Name="ServiceID" />
+      <PropertyRef Name="RecurrenceID" />
+    </Key>
+    <Property Name="ServiceID" Type="int" Nullable="false" />
+    <Property Name="RecurrenceID" Type="int" Nullable="false" />
+    <Property Name="Frequency" Type="nvarchar" MaxLength="50" />
+    <Property Name="PriceMultiplier" Type="int" />
+  </EntityType>
+  <Association Name="FK_Customization_Service">
+    <End Role="Service" Type="Self.Service" Multiplicity="1" />
+    <End Role="Customization" Type="Self.Customization" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Customization">
+        <PropertyRef Name="ServiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiceCustomization">
+    <End Role="Customization" Type="Self.Customization" Multiplicity="1" />
+    <End Role="CustomizationOptions" Type="Self.CustomizationOptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customization">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CustomizationOptions">
+        <PropertyRef Name="CustomizationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiceRecurrence_Recurrence">
+    <End Role="Recurrence" Type="Self.Recurrence" Multiplicity="1" />
+    <End Role="ServiceRecurrence" Type="Self.ServiceRecurrence" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Recurrence">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ServiceRecurrence">
+        <PropertyRef Name="RecurrenceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ServiceRecurrence_Service">
+    <End Role="Service" Type="Self.Service" Multiplicity="1" />
+    <End Role="ServiceRecurrence" Type="Self.ServiceRecurrence" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ServiceRecurrence">
+        <PropertyRef Name="ServiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="OnlineStoreModelStoreContainer">
+    <EntitySet Name="Customization" EntityType="Self.Customization" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustomizationOptions" EntityType="Self.CustomizationOptions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Purchase" EntityType="Self.Purchase" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Recurrence" EntityType="Self.Recurrence" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ServiceRecurrence" EntityType="Self.ServiceRecurrence" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Customization_Service" Association="Self.FK_Customization_Service">
+      <End Role="Service" EntitySet="Service" />
+      <End Role="Customization" EntitySet="Customization" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceCustomization" Association="Self.FK_ServiceCustomization">
+      <End Role="Customization" EntitySet="Customization" />
+      <End Role="CustomizationOptions" EntitySet="CustomizationOptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceRecurrence_Recurrence" Association="Self.FK_ServiceRecurrence_Recurrence">
+      <End Role="Recurrence" EntitySet="Recurrence" />
+      <End Role="ServiceRecurrence" EntitySet="ServiceRecurrence" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ServiceRecurrence_Service" Association="Self.FK_ServiceRecurrence_Service">
+      <End Role="Service" EntitySet="Service" />
+      <End Role="ServiceRecurrence" EntitySet="ServiceRecurrence" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
