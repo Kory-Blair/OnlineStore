@@ -29,61 +29,39 @@ namespace OnlineStore.Controllers
             return View(db.Services.Find(id));
         }
 
+        [HttpPost]
+        public ActionResult Index(Service model)
+        {
+            //TODO: Save the posted information to a database!
+            Purchase purchase = null;
+            if (Request.Cookies.AllKeys.Contains("cartID"))
+            {
 
+                int cartID = int.Parse(Request.Cookies["cartID"].Value);
+                purchase = db.Purchases.Find(cartID);
+            }
+            if (purchase == null)
+            {
+                purchase = new Purchase
+                {
+                    DateCreated = DateTime.UtcNow,
+                    DateLastModified = DateTime.UtcNow, 
+                };
+                db.Purchases.Add(purchase);
+
+                db.SaveChanges();
+                Response.AppendCookie(new HttpCookie("cartID", purchase.Id.ToString()));
+            }
+
+            purchase.ServiceId = model.Id;
+            purchase.Price = model.Price;
+            db.SaveChanges();
+
+            TempData.Add("NewItem", model.Name);
+
+            //TODO: build up the cart controller!
+            return RedirectToAction("Index", "Cart");
+        }
     }
 }
 
-
-//        [HttpPost]
-//        public ActionResult Index(Service model)
-//        {
-//            //TODO: Save the posted information to a database!
-//            Guid cartID;
-//            cart cart = null;
-//            if (Request.Cookies.AllKeys.Contains("cartID"))
-//            {
-
-//                cartID = Guid.Parse(Request.Cookies["cartID"].Value);
-//                cart = db.carts.Find(cartID);
-//            }
-//            if (cart == null)
-//            {
-//                cartID = Guid.NewGuid();
-//                cart = new cart
-//                {
-//                    ID = cartID,
-//                    DateCreated = DateTime.UtcNow,
-//                    DateLastModified = DateTime.UtcNow
-//                };
-//                db.Carts.Add(cart);
-//                Response.AppendCookie(new HttpCookie("cartID", cartID.ToString()));
-//            }
-
-//            CartProduct product = cart.CartProducts.FirstOrDefault(x => x.ProductID == model.Id);
-//            if (product == null)
-//            {
-//                product = new CartProduct
-//                {
-//                    DateCreated = DateTime.UtcNow,
-//                    DateLastModified = DateTime.UtcNow,
-//                    ProductID = model.Id,
-//                    Quantity = 0
-//                };
-//                cart.CartProducts.Add(product);
-//            }
-
-//            product.Quantity += model.Quantity ?? 1;
-//            product.DateLastModified = DateTime.UtcNow;
-//            cart.DateLastModified = DateTime.UtcNow;
-
-//            db.SaveChanges();
-
-
-//            TempData.Add("NewItem", model.Name);
-
-//            //TODO: build up the cart controller!
-//            return RedirectToAction("Index", "Cart");
-
-//        }
-//    }
-//}

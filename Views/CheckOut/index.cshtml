@@ -1,4 +1,5 @@
 ﻿@model OnlineStore.Models.CheckOut
+
 @{
     ViewBag.Title = "CheckOut";
 }
@@ -12,46 +13,57 @@
             <thead>
                 <tr>
                     <th>Item</th>
-                    <th>Quantity</th>
+                    <th>Frequency</th>
                     <th>Price</th>
                     <th>Item Total</th>
                 </tr>
             </thead>
             <tbody>
-                @for (int i = 0; i < Model.CurrentCart.Products.Length; i++)
-                {
-                    <tr>
+                
+                <tr>
 
                         <td>
-                            @Model.CurrentCart.Products[i].name
+                           @Model.CurrentCart.Service.Name
+                           @Html.HiddenFor(m => m.CurrentCart.Service.Name)
                         </td>
                         <td>
-                            @Model.CurrentCart.Products[i].quantity
+                           
 
                         </td>
                         <td>
-                            @Model.CurrentCart.Products[i].price.ToString("C")
+                            @((Model.CurrentCart.Service.Price ?? 0).ToString("C"))
+                            @Html.HiddenFor(m => m.CurrentCart.Service.Price)
                         </td>
-                        <td>@((Model.CurrentCart.Products[i].quantity * Model.CurrentCart.Products[i].price).ToString("C"))</td>
+                        <td>
+                            @Model
+                        </td>
                     </tr>
-                }
+                
             </tbody>
             <tfoot>
                 <tr>
                     <th colspan="3">Subtotal</th>
-                    <th>@Model.CurrentCart.SubTotal.ToString("C")</th>
+                    <th>
+                        @Model.CurrentCart.SubTotal
+                    </th>
                 </tr>
                 <tr>
                     <th colspan="3">Shipping and Handling</th>
-                    <th>@Model.CurrentCart.ShippingAndHandling.ToString("C")</th>
+                    <th>
+                        @Model.CurrentCart.ShippingAndHandling
+                    </th>
                 </tr>
                 <tr>
                     <th colspan="3">Tax</th>
-                    <th>@Model.CurrentCart.Tax.ToString("C")</th>
+                    <th>
+                        @Model.CurrentCart.Tax
+                    </th>
                 </tr>
                 <tr>
                     <th colspan="3">Total</th>
-                    <th>@Model.CurrentCart.Total.ToString("C")</th>
+                    <th>
+                        @Model.CurrentCart.Total
+                   </th>
                 </tr>
             </tfoot>
         </table>

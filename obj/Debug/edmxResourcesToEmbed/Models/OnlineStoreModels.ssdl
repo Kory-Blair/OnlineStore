@@ -1,5 +1,56 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="OnlineStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
   <EntityType Name="Customization">
     <Key>
       <PropertyRef Name="Id" />
@@ -22,10 +73,34 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Nullable="false" StoreGeneratedPattern="Identity" Type="int" />
-    <Property Name="PurchaseId" Nullable="false" Type="int" />
-    <Property Name="ServiceName" MaxLength="100" Type="nvarchar" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PurchaseId" Type="int" />
+    <Property Name="ServiceName" Type="nvarchar" MaxLength="100" />
     <Property Name="Price" Type="money" />
+    <Property Name="RecurrenceId" Type="int" />
+    <Property Name="CustomizationId" Type="int" />
+    <Property Name="ServiceId" Type="int" />
+    <Property Name="DateCreated" Type="datetime" />
+    <Property Name="DateLastModified" Type="datetime" />
+    <Property Name="TrackingNumber" Type="nvarchar" MaxLength="100" />
+    <Property Name="ShippingAndHandling" Type="money" />
+    <Property Name="Tax" Type="money" />
+    <Property Name="SubTotal" Type="money" />
+    <Property Name="Total" Type="money" />
+  </EntityType>
+  <EntityType Name="Recipient">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="1000" />
+    <Property Name="Address" Type="nvarchar" MaxLength="1000" />
+    <Property Name="City" Type="nvarchar" MaxLength="1000" />
+    <Property Name="State" Type="nvarchar" MaxLength="100" />
+    <Property Name="ZipCode" Type="nvarchar" MaxLength="100" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="100" />
+    <Property Name="PurchaseId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Recurrence">
     <Key>
@@ -36,6 +111,19 @@
     <Property Name="Option" Type="nvarchar" MaxLength="1" />
     <Property Name="Price Multiplier" Type="decimal" Precision="18" Scale="0" />
     <Property Name="Savings" Type="int" />
+    <Property Name="Recurrence_Purchase" Type="int" />
+  </EntityType>
+  <EntityType Name="ScheduledService">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name of Service" Type="nvarchar" MaxLength="100" />
+    <Property Name="Description" Type="ntext" />
+    <Property Name="Image" Type="nvarchar" MaxLength="1000" />
+    <Property Name="DateOrdered" Type="datetime" />
+    <Property Name="DateScheduled" Type="datetime" />
+    <Property Name="PurchaseId" Type="int" />
   </EntityType>
   <EntityType Name="Service">
     <Key>
@@ -67,6 +155,134 @@
       </Principal>
       <Dependent Role="Customization">
         <PropertyRef Name="ServiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Purchase_Customization">
+    <End Role="Customization" Type="Self.Customization" Multiplicity="0..1" />
+    <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customization">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Purchase">
+        <PropertyRef Name="CustomizationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Purchase_Recurrence">
+    <End Role="Recurrence" Type="Self.Recurrence" Multiplicity="0..1" />
+    <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Recurrence">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Purchase">
+        <PropertyRef Name="RecurrenceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Purchase_Service">
+    <End Role="Service" Type="Self.Service" Multiplicity="0..1" />
+    <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Service">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Purchase">
+        <PropertyRef Name="ServiceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Recipient_Purchase">
+    <End Role="Purchase" Type="Self.Purchase" Multiplicity="1" />
+    <End Role="Recipient" Type="Self.Recipient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Purchase">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Recipient">
+        <PropertyRef Name="PurchaseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Recurrence_Purchase">
+    <End Role="Purchase" Type="Self.Purchase" Multiplicity="0..1" />
+    <End Role="Recurrence" Type="Self.Recurrence" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Purchase">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Recurrence">
+        <PropertyRef Name="Recurrence_Purchase" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Scheduled Service_Purchase">
+    <End Role="Purchase" Type="Self.Purchase" Multiplicity="0..1" />
+    <End Role="ScheduledService" Type="Self.ScheduledService" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Purchase">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ScheduledService">
+        <PropertyRef Name="PurchaseId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -107,15 +323,62 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="OnlineStoreModelStoreContainer">
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Customization" EntityType="Self.Customization" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CustomizationOptions" EntityType="Self.CustomizationOptions" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Purchase" EntityType="Self.Purchase" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Recipient" EntityType="Self.Recipient" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Recurrence" EntityType="Self.Recurrence" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ScheduledService" EntityType="Self.ScheduledService" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ServiceRecurrence" EntityType="Self.ServiceRecurrence" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Customization_Service" Association="Self.FK_Customization_Service">
       <End Role="Service" EntitySet="Service" />
       <End Role="Customization" EntitySet="Customization" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Purchase_Customization" Association="Self.FK_Purchase_Customization">
+      <End Role="Customization" EntitySet="Customization" />
+      <End Role="Purchase" EntitySet="Purchase" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Purchase_Recurrence" Association="Self.FK_Purchase_Recurrence">
+      <End Role="Recurrence" EntitySet="Recurrence" />
+      <End Role="Purchase" EntitySet="Purchase" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Purchase_Service" Association="Self.FK_Purchase_Service">
+      <End Role="Service" EntitySet="Service" />
+      <End Role="Purchase" EntitySet="Purchase" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Recipient_Purchase" Association="Self.FK_Recipient_Purchase">
+      <End Role="Purchase" EntitySet="Purchase" />
+      <End Role="Recipient" EntitySet="Recipient" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Recurrence_Purchase" Association="Self.FK_Recurrence_Purchase">
+      <End Role="Purchase" EntitySet="Purchase" />
+      <End Role="Recurrence" EntitySet="Recurrence" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Scheduled Service_Purchase" Association="Self.FK_Scheduled Service_Purchase">
+      <End Role="Purchase" EntitySet="Purchase" />
+      <End Role="ScheduledService" EntitySet="ScheduledService" />
     </AssociationSet>
     <AssociationSet Name="FK_ServiceCustomization" Association="Self.FK_ServiceCustomization">
       <End Role="Customization" EntitySet="Customization" />

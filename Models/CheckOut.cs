@@ -8,7 +8,10 @@ namespace OnlineStore.Models
 {
     public class CheckOut
     {
-        public cart CurrentCart { get; set; }
+        public Purchase CurrentCart { get; set; }
+
+        [Display(Name = "Service Name")]
+        public string ServiceName { get; set; }
 
         [Display(Name = "Email")]
         [Required]
@@ -35,5 +38,35 @@ namespace OnlineStore.Models
         [Display(Name = "Zip Code")]
         public string ShippingPostalCode { get; set; }
 
+        
+        [Display(Name = "Date Created")]
+        public DateTime DateCreated { get; set; }
+
+        
+        [Display(Name = "Date Last Modified")]
+        public DateTime DateLastModified { get; set; }
+
+        
+        [Display(Name = "Tracking Number")]
+        public string TrackingNumber { get; set; }
+
+        
+        [Display(Name = "Shipping and Handling")]
+        public decimal ShippingAndHandling { get; set; }
+
+        [Display(Name = "Subtotal")]
+        public decimal SubTotal { get; set; }
+
+        [Display(Name = "Total")]
+        public decimal Total { get; set; }
+
+        [Display(Name = "Tax")]
+        public decimal Tax { get; set; }
+
+        [Display(Name = "Tax Rate")]
+        public decimal TaxRate { get; set; }
+
+        [Display(Name = "Price Modifer")]
+        public decimal PriceModifer { get; set; }
     }
 }

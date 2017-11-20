@@ -24,6 +24,26 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Products", "Index", "Product", null, null)</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>
+                            Welcome, @User.Identity.Name!
+                        </li>
+                        <li>
+                            @Html.ActionLink("LogOff", "LogOff", "Account")
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            @Html.ActionLink("Register", "Register", "Account")
+                        </li>
+                        <li>
+                            @Html.ActionLink("Log On", "LogOn", "Account")
+                        </li>
+                    }
+                    <li><a href="/cart"><span class="glyphicon glyphicon-shopping-cart"></span>Cart<span class="badge">@ViewBag.CartCount</span></a></li>
+
                 </ul>
             </div>
         </div>

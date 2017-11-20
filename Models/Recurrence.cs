@@ -17,6 +17,7 @@ namespace OnlineStore.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Recurrence()
         {
+            this.Purchases = new HashSet<Purchase>();
             this.ServiceRecurrences = new HashSet<ServiceRecurrence>();
         }
     
@@ -25,7 +26,11 @@ namespace OnlineStore.Models
         public string Option { get; set; }
         public Nullable<decimal> Price_Multiplier { get; set; }
         public Nullable<int> Savings { get; set; }
+        public Nullable<int> Recurrence_Purchase { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Purchase> Purchases { get; set; }
+        public virtual Purchase Purchase { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceRecurrence> ServiceRecurrences { get; set; }
     }

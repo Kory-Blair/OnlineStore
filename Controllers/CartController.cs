@@ -25,21 +25,38 @@ namespace OnlineStore.Controllers
         // GET: Cart
         public ActionResult Index()
         {
-            var cart = Models.cart.BuildCart(Request);
+            Purchase purchase = null;
+            if (Request.Cookies.AllKeys.Contains("cartID"))
+            {
 
-            return View(cart);
+                int cartID = int.Parse(Request.Cookies["cartID"].Value);
+                purchase = db.Purchases.Find(cartID);
+            }
+            if (purchase == null)
+            {
+                purchase = new Purchase();
+                db.Purchases.Add(purchase);
+                Response.AppendCookie(new HttpCookie("cartID", purchase.Id.ToString()));
+            }
+
+            return View(purchase);
         }
 
         [HttpPost]
-        public ActionResult Index(Models.cart model)
+        public ActionResult Index(Models.Purchase model)
         {
-            Response.AppendCookie(new HttpCookie("productQuantity", model.Products[0].quantity.ToString()));
+            if (Request.Cookies.AllKeys.Contains("cartID"))
+            {
 
-            model.SubTotal = model.Products.Sum(x => x.price * x.quantity);
-
-            model.Tax = model.SubTotal * .1025m;
-            model.ShippingAndHandling = model.Products.Sum(x => x.quantity) * 1m;
-            model.Total = model.SubTotal + model.Tax + model.ShippingAndHandling;
+                int cartID = int.Parse(Request.Cookies["cartID"].Value);
+                model = db.Purchases.Find(cartID);
+            }
+            if (model == null)
+            {
+                model = new Purchase();
+                db.Purchases.Add(model);
+                Response.AppendCookie(new HttpCookie("cartID", model.Id.ToString()));
+            }
             return View(model);
         }
     }

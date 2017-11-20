@@ -25,11 +25,17 @@ namespace OnlineStore.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Customization> Customizations { get; set; }
         public virtual DbSet<CustomizationOption> CustomizationOptions { get; set; }
+        public virtual DbSet<Purchase> Purchases { get; set; }
+        public virtual DbSet<Recipient> Recipients { get; set; }
         public virtual DbSet<Recurrence> Recurrences { get; set; }
+        public virtual DbSet<ScheduledService> ScheduledServices { get; set; }
         public virtual DbSet<Service> Services { get; set; }
         public virtual DbSet<ServiceRecurrence> ServiceRecurrences { get; set; }
-        public virtual DbSet<Purchase> Purchases { get; set; }
     }
 }

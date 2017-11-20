@@ -18,6 +18,7 @@ namespace OnlineStore.Models
         public Service()
         {
             this.Customizations = new HashSet<Customization>();
+            this.Purchases = new HashSet<Purchase>();
             this.ServiceRecurrences = new HashSet<ServiceRecurrence>();
         }
     
@@ -30,6 +31,8 @@ namespace OnlineStore.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customization> Customizations { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Purchase> Purchases { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ServiceRecurrence> ServiceRecurrences { get; set; }
     }

@@ -17,6 +17,7 @@ namespace OnlineStore.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Customization()
         {
+            this.Purchases = new HashSet<Purchase>();
             this.CustomizationOptions = new HashSet<CustomizationOption>();
         }
     
@@ -25,6 +26,8 @@ namespace OnlineStore.Models
         public string Name { get; set; }
     
         public virtual Service Service { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Purchase> Purchases { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomizationOption> CustomizationOptions { get; set; }
     }
