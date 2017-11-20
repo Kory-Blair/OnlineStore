@@ -1,0 +1,20 @@
+﻿@model Braintree.Customer
+@{
+    ViewBag.Title = "Index";
+}
+@if(ViewBag.Message != false)
+
+@using (Html.BeginForm())
+{
+    <div>
+        @Html.LabelFor(m => m.FirstName)
+        @Html.TextBoxFor(m => m.FirstName)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.LastName)
+        @Html.TextBoxFor(m => m.LastName)
+    </div>
+    @Html.HiddenFor(m => m.Id)
+    <input type="submit" value="Save Changes" />
+}
+<h2>Index</h2>

@@ -1,16 +1,43 @@
 ﻿
 @{
-    ViewBag.Title = "SignIn";
+
+    ViewBag.Title = "Sign In";
+
+}
+@if (ViewBag.Error != null)
+{
+    foreach (string s in (IEnumerable<string>)ViewBag.Error)
+    {
+        <div>Error: @s</div>
+    }
 }
 
-<h2>SignIn</h2>
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+@using (Html.BeginForm())
+{
+    <div>
+        <label for="username">Username</label>
+        <input name="username" type="text" />
+    </div>
 
-
-<div class="row">
+    <div>
+        <label for="password">Password</label>
+        <input name="password" type="password" />
+    </div>
+    <div>
+        <label for="staySignedIn">Stay Signed In</label>
+        <input name="staySignedIn" type="checkbox" />
+    </div>
+    <input type="submit" value="Login" />
+}
 <div>
-@Html.ActionLink("Register for a new account", "Register")
+    <div>
+        @Html.ActionLink("Register for a new account", "Register")
     </div>
-<div>
-@Html.ActionLink("Recover your password", "ForgotPassword")
+    <div>
+        @Html.ActionLink("Recover your password", "ForgotPassword")
     </div>
-    </div>
+</div>

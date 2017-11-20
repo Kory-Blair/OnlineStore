@@ -49,6 +49,9 @@
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Braintree, Version=3.10.0.0, Culture=neutral, PublicKeyToken=31b586f34d3e96c7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Braintree.3.10.0\lib\net452\Braintree.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -122,6 +125,7 @@
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.4.1\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -340,6 +344,8 @@
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\SignIn.cshtml" />
     <Content Include="Views\Account\ForgotPasswordSent.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
