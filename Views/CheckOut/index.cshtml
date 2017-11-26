@@ -2,8 +2,26 @@
 
 @{
     ViewBag.Title = "CheckOut";
-}
 
+
+    var months = (new string[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" })
+        .Select(x => new SelectListItem { Text = x, Value = x });
+
+    var years = new List<SelectListItem>();
+    for (int i = 0; i < 5; i++)
+    {
+        years.Add(new SelectListItem
+        {
+            Text = (DateTime.Now.Year + i).ToString(),
+            Value = (DateTime.Now.Year + i).ToString()
+        });
+    }
+    if (User.Identity.IsAuthenticated)
+    {
+        Model.ContactEmail = User.Identity.Name;
+    }
+
+}
 <div class="row">
     <div class="col-xs-12">
         <h2>Checkout</h2>
@@ -35,7 +53,7 @@
                             @Html.HiddenFor(m => m.CurrentCart.Service.Price)
                         </td>
                         <td>
-                            @Model
+                            @((Model.CurrentCart.SubTotal ?? 0).ToString("C"))
                         </td>
                     </tr>
                 
@@ -44,25 +62,25 @@
                 <tr>
                     <th colspan="3">Subtotal</th>
                     <th>
-                        @Model.CurrentCart.SubTotal
+                        @Model.SubTotal
                     </th>
                 </tr>
                 <tr>
                     <th colspan="3">Shipping and Handling</th>
                     <th>
-                        @Model.CurrentCart.ShippingAndHandling
+                        @Model.ShippingAndHandling
                     </th>
                 </tr>
                 <tr>
                     <th colspan="3">Tax</th>
                     <th>
-                        @Model.CurrentCart.Tax
+                        @Model.Tax
                     </th>
                 </tr>
                 <tr>
                     <th colspan="3">Total</th>
                     <th>
-                        @Model.CurrentCart.Total
+                        @Model.Total
                    </th>
                 </tr>
             </tfoot>
@@ -110,6 +128,35 @@
                 @Html.TextBoxFor(m => m.ShippingPostalCode, new { @class = "form-control", placeholder = "Zip Code" })
                 @Html.ValidationMessageFor(m => m.ShippingPostalCode)
             </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.CreditCardNumber, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.CreditCardNumber, new { @class = "form-control", placeholder = "0000000000000000" })
+                @Html.ValidationMessageFor(m => m.CreditCardNumber)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.CardholderName, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.CardholderName, new { @class = "form-control", placeholder = "John Smith" })
+                @Html.ValidationMessageFor(m => m.CardholderName)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.CVV, new { @class = "control-label" })
+                @Html.TextBoxFor(m => m.CVV, new { @class = "form-control", placeholder = "000" })
+                @Html.ValidationMessageFor(m => m.CVV)
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.ExpirationMonth, new { @class = "control-label" })
+                <div class="input-group">
+                @Html.DropDownListFor(m => m.ExpirationMonth, months, new { @class="form-control"})
+                @Html.DropDownListFor(m => m.ExpirationYear, years, new { @class="form-control"})
+                    
+                
+            </div></div>
+
+
 
             <input type="submit" class="btn btn-primary" />
         }

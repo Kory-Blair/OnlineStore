@@ -113,3 +113,7 @@ C:\Users\kory\source\repos\OnlineStore\OnlineStore\bin\System.Diagnostics.Diagno
 C:\Users\kory\source\repos\OnlineStore\OnlineStore\bin\Microsoft.Owin.Host.SystemWeb.dll
 C:\Users\kory\source\repos\OnlineStore\OnlineStore\bin\Microsoft.Owin.Host.SystemWeb.xml
 C:\Users\kory\source\repos\OnlineStore\OnlineStore\obj\Debug\OnlineStore.csprojResolveAssemblyReference.cache
+C:\Users\kory\source\repos\OnlineStore\OnlineStore\bin\Braintree.dll
+C:\Users\kory\source\repos\OnlineStore\OnlineStore\bin\SendGrid.dll
+C:\Users\kory\source\repos\OnlineStore\OnlineStore\bin\SendGrid.pdb
+C:\Users\kory\source\repos\OnlineStore\OnlineStore\bin\SendGrid.xml

@@ -28,7 +28,6 @@ namespace OnlineStore.Controllers
         return View(purchase);
     }
 
-
     protected override void Dispose(bool disposing)
     {
         if (disposing)

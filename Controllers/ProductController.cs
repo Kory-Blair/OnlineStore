@@ -32,7 +32,7 @@ namespace OnlineStore.Controllers
         [HttpPost]
         public ActionResult Index(Service model)
         {
-            //TODO: Save the posted information to a database!
+            
             Purchase purchase = null;
             if (Request.Cookies.AllKeys.Contains("cartID"))
             {
@@ -56,10 +56,10 @@ namespace OnlineStore.Controllers
             purchase.ServiceId = model.Id;
             purchase.Price = model.Price;
             db.SaveChanges();
-
+            TempData.Clear();
             TempData.Add("NewItem", model.Name);
 
-            //TODO: build up the cart controller!
+            
             return RedirectToAction("Index", "Cart");
         }
     }

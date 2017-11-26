@@ -82,7 +82,26 @@ namespace OnlineStore.Controllers
                     Purchase = model.CurrentCart
                 });
                 db.SaveChanges();
-                Response.SetCookie(new HttpCookie("cartID") { Expires = DateTime.UtcNow });
+
+                string merchantId = System.Configuration.ConfigurationManager.AppSettings["Braintree.MerchantId"];
+                string environment = System.Configuration.ConfigurationManager.AppSettings["Braintree.Environment"];
+                string publicKey = System.Configuration.ConfigurationManager.AppSettings["Braintree.PublicKey"];
+                string privateKey = System.Configuration.ConfigurationManager.AppSettings["Braintree.PrivateKey"];
+                Braintree.BraintreeGateway gateway = new Braintree.BraintreeGateway(environment, merchantId, publicKey, privateKey);
+                Braintree.TransactionRequest transaction = new Braintree.TransactionRequest();
+                transaction.Amount = 1m;
+                transaction.Amount = model.SubTotal + model.ShippingAndHandling;
+                transaction.TaxAmount = model.Tax;
+                transaction.CreditCard = new Braintree.TransactionCreditCardRequest
+                {
+                    CardholderName = model.CardholderName,
+                    CVV = model.CVV,
+                    Number = model.CreditCardNumber,
+                    ExpirationYear = model.ExpirationMonth,
+                    ExpirationMonth = model.ExpirationYear
+                };
+
+                gateway.Transaction.Sale(transaction);
 
                 OnlineStoreEmailService emailService = new OnlineStoreEmailService();
                 emailService.SendAsync(new Microsoft.AspNet.Identity.IdentityMessage
@@ -93,7 +112,14 @@ namespace OnlineStore.Controllers
                     Body = "Thank you for shopping!"
                         });
 
-                return RedirectToAction("Index", "Receipt");
+                // db.CartProducts.RemoveRange(model.CurrentCart.CartProducts);
+                // db.Carts.Remove(model.CurrentCart);
+                Response.SetCookie(new HttpCookie("cartID") { Expires = DateTime.UtcNow });
+               // db.SaveChanges();
+
+                //Create a datetime stamp that signifies a completed order
+
+                return RedirectToAction("Index", "Receipt", new { id = trackingNumber});
             }
             return View(model);
         }

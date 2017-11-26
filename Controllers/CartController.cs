@@ -21,14 +21,13 @@ namespace OnlineStore.Controllers
             base.Dispose(disposing);
         }
 
-
-        // GET: Cart
         public ActionResult Index()
         {
             Purchase purchase = null;
+
+
             if (Request.Cookies.AllKeys.Contains("cartID"))
             {
-
                 int cartID = int.Parse(Request.Cookies["cartID"].Value);
                 purchase = db.Purchases.Find(cartID);
             }
@@ -36,12 +35,13 @@ namespace OnlineStore.Controllers
             {
                 purchase = new Purchase();
                 db.Purchases.Add(purchase);
+                db.SaveChanges();
                 Response.AppendCookie(new HttpCookie("cartID", purchase.Id.ToString()));
             }
 
             return View(purchase);
-        }
 
+        }
         [HttpPost]
         public ActionResult Index(Models.Purchase model)
         {

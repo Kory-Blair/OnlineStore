@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using Braintree;
 
 namespace OnlineStore.Models
 {
@@ -68,5 +69,26 @@ namespace OnlineStore.Models
 
         [Display(Name = "Price Modifer")]
         public decimal PriceModifer { get; set; }
+
+        [Required]
+        [Display(Name = "Cardholder Name")]
+        public string CardholderName { get; set; }
+
+        [Required]
+        [Display(Name = "Credit Card Number")]
+        public string CreditCardNumber { get; set; }
+
+        [Required]
+        [Display(Name = "Credit Verification Number")]
+        public string CVV { get; set; }
+
+        [Required]
+        [Display(Name = "Credit Card Expiration")]
+        public string ExpirationMonth { get; set; }
+
+        [Required]
+        public string ExpirationYear { get; set; }
+        public Address[] Addresses { get; internal set; }
     }
+
 }
