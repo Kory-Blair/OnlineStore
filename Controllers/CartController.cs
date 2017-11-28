@@ -26,17 +26,18 @@ namespace OnlineStore.Controllers
             Purchase purchase = null;
 
 
-            if (Request.Cookies.AllKeys.Contains("cartID"))
+            if (Request.Cookies.AllKeys.Contains("purchaseId"))
             {
-                int cartID = int.Parse(Request.Cookies["cartID"].Value);
-                purchase = db.Purchases.Find(cartID);
+                int purchaseId = int.Parse(Request.Cookies["purchaseId"].Value);
+                
+                purchase = db.Purchases.Find(purchaseId);
             }
             if (purchase == null)
             {
                 purchase = new Purchase();
                 db.Purchases.Add(purchase);
                 db.SaveChanges();
-                Response.AppendCookie(new HttpCookie("cartID", purchase.Id.ToString()));
+                Response.AppendCookie(new HttpCookie("purchaseId", purchase.Id.ToString()));
             }
 
             return View(purchase);
@@ -45,18 +46,23 @@ namespace OnlineStore.Controllers
         [HttpPost]
         public ActionResult Index(Models.Purchase model)
         {
-            if (Request.Cookies.AllKeys.Contains("cartID"))
-            {
 
-                int cartID = int.Parse(Request.Cookies["cartID"].Value);
-                model = db.Purchases.Find(cartID);
+            if (Request.Cookies.AllKeys.Contains("purchaseId"))
+            {
+                int purchaseId = int.Parse(Request.Cookies["purchaseId"].Value);
+                model = db.Purchases.Find(purchaseId);
+                
             }
+
             if (model == null)
             {
                 model = new Purchase();
                 db.Purchases.Add(model);
-                Response.AppendCookie(new HttpCookie("cartID", model.Id.ToString()));
+                Response.AppendCookie(new HttpCookie("purchaseId", model.Id.ToString()));
             }
+            
+            
+
             return View(model);
         }
     }

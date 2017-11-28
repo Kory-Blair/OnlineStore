@@ -27,7 +27,6 @@
         <AssociationConnector Association="OnlineStoreModel.FK_Purchase_Recurrence" />
         <AssociationConnector Association="OnlineStoreModel.FK_Purchase_Service" />
         <AssociationConnector Association="OnlineStoreModel.FK_Recipient_Purchase" />
-        <AssociationConnector Association="OnlineStoreModel.FK_Recurrence_Purchase" />
         <AssociationConnector Association="OnlineStoreModel.FK_Scheduled_Service_Purchase" />
         <AssociationConnector Association="OnlineStoreModel.FK_ServiceRecurrence_Recurrence" />
         <AssociationConnector Association="OnlineStoreModel.FK_ServiceRecurrence_Service" />

@@ -1,4 +1,5 @@
-﻿using CodingTemple.CodingCookware.Web;
+﻿using Braintree;
+using CodingTemple.CodingCookware.Web;
 using OnlineStore.Models;
 using System;
 using System.Collections.Generic;
@@ -21,107 +22,117 @@ namespace OnlineStore.Controllers
             }
             base.Dispose(disposing);
         }
-        
+
         public ActionResult Index()
         {
 
             Models.CheckOut details = new Models.CheckOut();
-
-            details.CurrentCart = null;
-            if (Request.Cookies.AllKeys.Contains("cartID"))
+            int purchaseId = int.Parse(Request.Cookies["purchaseId"].Value);
+            details.CurrentCart = db.Purchases.Find(purchaseId);
+            //details.CurrentCart = null;
+            details.Addresses = new Braintree.Address[0];
+            if (User.Identity.IsAuthenticated)
             {
-
-                int cartID = int.Parse(Request.Cookies["cartID"].Value);
-                details.CurrentCart = db.Purchases.Find(cartID);
-            }
-            if (details.CurrentCart == null)
-            {
-                details.CurrentCart = new Purchase();
-                db.Purchases.Add(details.CurrentCart);
-                Response.AppendCookie(new HttpCookie("cartID", details.CurrentCart.Id.ToString()));
-            }
-
-            return View(details);
-        }
-
-        
-        [HttpPost]
-        public ActionResult Index(Models.CheckOut model)
-        {
-
-            if (Request.Cookies.AllKeys.Contains("cartID"))
-            {
-                int cartID = int.Parse(Request.Cookies["cartID"].Value);
-                model.CurrentCart = db.Purchases.Find(cartID);
-            }
-            if (model.CurrentCart == null)
-            {
-                model.CurrentCart = new Purchase();
-                db.Purchases.Add(model.CurrentCart);
-                Response.AppendCookie(new HttpCookie("cartID", model.CurrentCart.Id.ToString()));
-            }
-
-
-            if (ModelState.IsValid)
-            {
-                model.ServiceName = model.CurrentCart.ServiceName;
-                string trackingNumber = Guid.NewGuid().ToString().Substring(0, 8);
-                model.CurrentCart.TrackingNumber = trackingNumber;
-                model.CurrentCart.SubTotal = model.CurrentCart.Service.Price;
-                model.CurrentCart.Tax = model.CurrentCart.SubTotal * .1m;
-                model.CurrentCart.Total = model.CurrentCart.SubTotal + model.CurrentCart.Tax;
-                db.Recipients.Add(new Recipient
-                {
-                    
-                    Email = model.ContactEmail,
-                    ZipCode = model.ShippingPostalCode,
-                    Address = model.ShippingAddress,
-                    City = model.ShippingCity,
-                    Name = model.ContactName,
-                    State = model.ShippingState,
-                    Purchase = model.CurrentCart
-                });
-                db.SaveChanges();
-
                 string merchantId = System.Configuration.ConfigurationManager.AppSettings["Braintree.MerchantId"];
                 string environment = System.Configuration.ConfigurationManager.AppSettings["Braintree.Environment"];
                 string publicKey = System.Configuration.ConfigurationManager.AppSettings["Braintree.PublicKey"];
                 string privateKey = System.Configuration.ConfigurationManager.AppSettings["Braintree.PrivateKey"];
                 Braintree.BraintreeGateway gateway = new Braintree.BraintreeGateway(environment, merchantId, publicKey, privateKey);
-                Braintree.TransactionRequest transaction = new Braintree.TransactionRequest();
-                transaction.Amount = 1m;
-                transaction.Amount = model.SubTotal + model.ShippingAndHandling;
-                transaction.TaxAmount = model.Tax;
-                transaction.CreditCard = new Braintree.TransactionCreditCardRequest
+
+                var customerGateway = gateway.Customer;
+                Braintree.CustomerSearchRequest query = new Braintree.CustomerSearchRequest();
+                query.Email.Is(User.Identity.Name);
+                var matchedCustomers = customerGateway.Search(query);
+                Braintree.Customer customer = null;
+
+                if (matchedCustomers.Ids.Count == 0)
                 {
-                    CardholderName = model.CardholderName,
-                    CVV = model.CVV,
-                    Number = model.CreditCardNumber,
-                    ExpirationYear = model.ExpirationMonth,
-                    ExpirationMonth = model.ExpirationYear
-                };
+                    Braintree.CustomerRequest Customer = new Braintree.CustomerRequest();
+                    Customer.Email = User.Identity.Name;
 
-                gateway.Transaction.Sale(transaction);
+                    var result = customerGateway.Create(Customer);
+                    customer = result.Target;
+                }
+                else
+                {
+                    customer = matchedCustomers.FirstItem;
+                }
 
-                OnlineStoreEmailService emailService = new OnlineStoreEmailService();
-                emailService.SendAsync(new Microsoft.AspNet.Identity.IdentityMessage
+                details.Addresses = customer.Addresses;
+            }
+            return View(details);
+        }
+
+
+        [HttpPost]
+        public ActionResult Index(Models.CheckOut model, string addressId)
+        {
+
+            int purchaseId = int.Parse(Request.Cookies["purchaseId"].Value);
+            model.CurrentCart = db.Purchases.Find(purchaseId);
+            model.Addresses = new Braintree.Address[0];
+
+            if (ModelState.IsValid)
+            {
+                model.ServiceName = model.CurrentCart.ServiceName;
+                string TrackingNumber = Guid.NewGuid().ToString().Substring(0, 8);
+                model.CurrentCart.TrackingNumber = TrackingNumber;
+                model.CurrentCart.SubTotal = model.CurrentCart.Service.Price;
+                model.CurrentCart.Tax = model.CurrentCart.SubTotal * .1m;
+                model.CurrentCart.Total = model.CurrentCart.SubTotal + model.CurrentCart.Tax;
+
+
+                PaymentService payments = new PaymentService();
+                string email = User.Identity.IsAuthenticated ? User.Identity.Name : model.ContactEmail;
+                decimal total = model.Total;
+                decimal tax = model.Tax;
+
+
+                string message = payments.AuthorizeCard(email, total, tax, model.TrackingNumber, addressId, model.CardholderName, model.CVV, model.CreditCardNumber, model.ExpirationMonth, model.ExpirationYear);
+
+                if (string.IsNullOrEmpty(message))
+                {
+                    Recipient recipient = new Recipient
                     {
+                        Email = model.ContactEmail,
+                        Name = model.ContactName,
+                        Address = model.ShippingAddress,
+                        City = model.ShippingCity,
+                        ZipCode = model.ShippingPostalCode,
+                        State = model.ShippingState
 
-                    Subject = "Your Receipt for order" + trackingNumber,
-                    Destination = model.ContactEmail,
-                    Body = "Thank you for shopping!"
-                        });
+                    };
 
-                // db.CartProducts.RemoveRange(model.CurrentCart.CartProducts);
-                // db.Carts.Remove(model.CurrentCart);
-                Response.SetCookie(new HttpCookie("cartID") { Expires = DateTime.UtcNow });
-               // db.SaveChanges();
+                    Purchase purchase = new Purchase
+                    {
+                        DateCreated = DateTime.UtcNow,
+                        DateLastModified = DateTime.UtcNow,
+                        TrackingNumber = model.CurrentCart.TrackingNumber,
+                        ShippingAndHandling = model.CurrentCart.ShippingAndHandling,
+                        Tax = model.CurrentCart.Tax,
+                        Total = model.CurrentCart.Total,
+                        SubTotal = model.CurrentCart.SubTotal,
 
-                //Create a datetime stamp that signifies a completed order
+                    };
+                    db.Purchases.Add(purchase);
 
-                return RedirectToAction("Index", "Receipt", new { id = trackingNumber});
+                    db.SaveChanges();
+
+                    OnlineStoreEmailService emailService = new OnlineStoreEmailService();
+                    emailService.SendAsync(new Microsoft.AspNet.Identity.IdentityMessage
+                    {
+                        Subject = "Your receipt for order " + model.CurrentCart.TrackingNumber,
+                        Destination = model.ContactEmail,
+                        Body = "Thank you for shopping with us."
+                    });
+
+                    Response.SetCookie(new HttpCookie("purchaseId") { Expires = DateTime.UtcNow });
+
+                    return RedirectToAction("Index", "Receipt", new { id = model.CurrentCart.TrackingNumber });
+                }
+                ModelState.AddModelError("CreditCardNumber", message);
             }
             return View(model);
         }
     }
-}
+}      

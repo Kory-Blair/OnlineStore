@@ -16,11 +16,9 @@ namespace OnlineStore.Controllers
         [Authorize]
         public ActionResult Index()
         {
-
             var customer = paymentService.GetCustomer(User.Identity.Name);
             return View(customer);
         }
-
 
         [HttpPost]
         [Authorize]
@@ -35,6 +33,33 @@ namespace OnlineStore.Controllers
         public ActionResult Register()
         {
             return View();
+        }
+
+        [Authorize]
+        public ActionResult Addresses()
+        {
+            var customer = paymentService.GetCustomer(User.Identity.Name);
+            return View(customer.Addresses);
+        }
+
+        [Authorize]
+        public ActionResult DeleteAddress(string id)
+        {
+            paymentService.DeleteAddress(User.Identity.Name, id);
+            TempData["SuccessMessage"] = "Address deleted successfully";
+            return RedirectToAction("Addresses");
+
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddAddress(string firstName, string lastName, string company, string streetAddress, string extendedAddress, string locality, string region, string postalCode, string countryName)
+        {
+
+            paymentService.AddAddress(User.Identity.Name, firstName, lastName, company, streetAddress, extendedAddress, locality, region, postalCode, countryName);
+
+            TempData["SuccessMessage"] = "Address added successfully";
+            return RedirectToAction("Addresses");
         }
 
         [HttpPost]
@@ -62,8 +87,6 @@ namespace OnlineStore.Controllers
         public ActionResult LogOff()
         {
             HttpContext.GetOwinContext().Authentication.SignOut();
-
-
             return RedirectToAction("Index", "Home");
         }
 

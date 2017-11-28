@@ -251,6 +251,7 @@
       <DependentUpon>OnlineStoreModels.tt</DependentUpon>
     </Compile>
     <Compile Include="OnlineStoreEmailService.cs" />
+    <Compile Include="PaymentService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>

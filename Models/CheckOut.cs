@@ -86,6 +86,8 @@ namespace OnlineStore.Models
         [Display(Name = "Credit Card Expiration")]
         public string ExpirationMonth { get; set; }
 
+        public Guid purchaseId { get; set; }
+
         [Required]
         public string ExpirationYear { get; set; }
         public Address[] Addresses { get; internal set; }

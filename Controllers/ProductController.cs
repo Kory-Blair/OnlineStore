@@ -34,11 +34,11 @@ namespace OnlineStore.Controllers
         {
             
             Purchase purchase = null;
-            if (Request.Cookies.AllKeys.Contains("cartID"))
+            if (Request.Cookies.AllKeys.Contains("purchaseId"))
             {
 
-                int cartID = int.Parse(Request.Cookies["cartID"].Value);
-                purchase = db.Purchases.Find(cartID);
+                int purchaseId = int.Parse(Request.Cookies["purchaseId"].Value);
+                purchase = db.Purchases.Find(purchaseId);
             }
             if (purchase == null)
             {
@@ -48,9 +48,9 @@ namespace OnlineStore.Controllers
                     DateLastModified = DateTime.UtcNow, 
                 };
                 db.Purchases.Add(purchase);
-
+                
                 db.SaveChanges();
-                Response.AppendCookie(new HttpCookie("cartID", purchase.Id.ToString()));
+                Response.AppendCookie(new HttpCookie("purchaseId", purchase.Id.ToString()));
             }
 
             purchase.ServiceId = model.Id;
