@@ -25,7 +25,7 @@ namespace OnlineStore.Models
         public string Name { get; set; }
         public string Option { get; set; }
         public Nullable<decimal> Price_Multiplier { get; set; }
-        public Nullable<int> Savings { get; set; }
+        public Nullable<decimal> Savings { get; set; }
         public Nullable<int> Recurrence_Purchase { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

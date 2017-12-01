@@ -26,7 +26,7 @@
                     <li>@Html.ActionLink("Products", "Index", "Product", null, null)</li>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li color="white">
+                        <li style="color:white; font-size:14px; margin-top:15px; margin-left:15px; margin-right:15px; font-family: Helvetica Neue, Helvetica, Arial, sans-serif;">
                             Welcome, @User.Identity.Name!
                         </li>
                         <li>
@@ -39,10 +39,10 @@
                             @Html.ActionLink("Register", "Register", "Account")
                         </li>
                         <li>
-                            @Html.ActionLink("Log On", "LogOn", "Account")
+                            @Html.ActionLink("Sign In", "SignIn", "Account")
                         </li>
                     }
-                    <li><a href="/cart"><span class="glyphicon glyphicon-shopping-cart"></span>Cart<span class="badge">@ViewBag.CartCount</span></a></li>
+                    <li><a href="/cart"><span class="glyphicon glyphicon-shopping-cart"></span>Cart<span class="badge"></span></a></li>
 
                 </ul>
             </div>
@@ -50,7 +50,7 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
+        <hr/>
         <footer>
             <p>&copy; @DateTime.Now.Year - Is This Real Life?</p>
         </footer>

@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Threading.Tasks;
+using System.Configuration;
+
 
 namespace OnlineStore.Controllers
 {
@@ -29,6 +32,14 @@ namespace OnlineStore.Controllers
             Models.CheckOut details = new Models.CheckOut();
             int purchaseId = int.Parse(Request.Cookies["purchaseId"].Value);
             details.CurrentCart = db.Purchases.Find(purchaseId);
+
+
+            details.PriceModifer = details.CurrentCart.Recurrence.Price_Multiplier;
+            details.CurrentCart.Price = details.CurrentCart.Service.Price * details.PriceModifer;
+            details.CurrentCart.SubTotal = details.CurrentCart.Price;
+            details.CurrentCart.Tax = details.CurrentCart.SubTotal * .1m;
+            details.CurrentCart.Total = details.CurrentCart.SubTotal + details.CurrentCart.Tax;
+
             //details.CurrentCart = null;
             details.Addresses = new Braintree.Address[0];
             if (User.Identity.IsAuthenticated)
@@ -84,11 +95,11 @@ namespace OnlineStore.Controllers
 
                 PaymentService payments = new PaymentService();
                 string email = User.Identity.IsAuthenticated ? User.Identity.Name : model.ContactEmail;
-                decimal total = model.Total;
-                decimal tax = model.Tax;
+                //decimal? total = model.CurrentCart.Total;
+                //decimal? tax = model.CurrentCart.Tax;
 
 
-                string message = payments.AuthorizeCard(email, total, tax, model.TrackingNumber, addressId, model.CardholderName, model.CVV, model.CreditCardNumber, model.ExpirationMonth, model.ExpirationYear);
+                string message = payments.AuthorizeCard(model.ContactEmail, (model.CurrentCart.Total ?? .01m), (model.CurrentCart.Tax ?? 0m), model.TrackingNumber, model.ShippingAddress, model.CardholderName, model.CVV, model.CreditCardNumber, model.ExpirationMonth, model.ExpirationYear);
 
                 if (string.IsNullOrEmpty(message))
                 {
@@ -114,6 +125,7 @@ namespace OnlineStore.Controllers
                         SubTotal = model.CurrentCart.SubTotal,
 
                     };
+
                     db.Purchases.Add(purchase);
 
                     db.SaveChanges();
@@ -133,6 +145,32 @@ namespace OnlineStore.Controllers
                 ModelState.AddModelError("CreditCardNumber", message);
             }
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult ValidateAddress(string street, string city, string state, string zip)
+        {
+            string authId = ConfigurationManager.AppSettings["SmartyStreets.AuthID"];
+            string authToken = ConfigurationManager.AppSettings["SmartyStreets.AuthToken"];
+            SmartyStreets.ClientBuilder clientBuilder = new SmartyStreets.ClientBuilder(authId, authToken);
+            var client = clientBuilder.BuildUsStreetApiClient();
+            SmartyStreets.USStreetApi.Lookup lookup = new SmartyStreets.USStreetApi.Lookup
+            {
+                City = city,
+                ZipCode = zip,
+                Street = street,
+                State = state
+            };
+
+            client.Send(lookup);
+
+            return Json(lookup.Result.Select(x => new
+            {
+                street = x.DeliveryLine1,
+                city = x.Components.CityName,
+                state = x.Components.State,
+                zip = x.Components.ZipCode + "-" + x.Components.Plus4Code
+            }));
         }
     }
 }      

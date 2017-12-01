@@ -24,7 +24,7 @@ namespace OnlineStore.Controllers
         public ActionResult Index()
         {
             Purchase purchase = null;
-
+            
 
             if (Request.Cookies.AllKeys.Contains("purchaseId"))
             {
@@ -36,15 +36,17 @@ namespace OnlineStore.Controllers
             {
                 purchase = new Purchase();
                 db.Purchases.Add(purchase);
+                
                 db.SaveChanges();
                 Response.AppendCookie(new HttpCookie("purchaseId", purchase.Id.ToString()));
-            }
 
+            }
+            
             return View(purchase);
 
         }
         [HttpPost]
-        public ActionResult Index(Models.Purchase model)
+        public ActionResult Index(Models.Purchase model, int? Recurrence)
         {
 
             if (Request.Cookies.AllKeys.Contains("purchaseId"))
@@ -60,7 +62,14 @@ namespace OnlineStore.Controllers
                 db.Purchases.Add(model);
                 Response.AppendCookie(new HttpCookie("purchaseId", model.Id.ToString()));
             }
-            
+
+            model.RecurrenceId = Recurrence;
+
+
+            db.SaveChanges();
+
+            model.Price = model.Service.Price * model.Recurrence.Price_Multiplier;
+            //model.Recurrence.Savings = null;
             
 
             return View(model);

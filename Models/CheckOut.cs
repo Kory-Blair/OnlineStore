@@ -51,24 +51,21 @@ namespace OnlineStore.Models
         [Display(Name = "Tracking Number")]
         public string TrackingNumber { get; set; }
 
-        
-        [Display(Name = "Shipping and Handling")]
-        public decimal ShippingAndHandling { get; set; }
 
         [Display(Name = "Subtotal")]
-        public decimal SubTotal { get; set; }
+        public decimal? SubTotal { get; set; }
 
         [Display(Name = "Total")]
-        public decimal Total { get; set; }
+        public decimal? Total { get; set; }
 
         [Display(Name = "Tax")]
-        public decimal Tax { get; set; }
+        public decimal? Tax { get; set; }
 
         [Display(Name = "Tax Rate")]
-        public decimal TaxRate { get; set; }
+        public decimal? TaxRate { get; set; }
 
         [Display(Name = "Price Modifer")]
-        public decimal PriceModifer { get; set; }
+        public decimal? PriceModifer { get; set; }
 
         [Required]
         [Display(Name = "Cardholder Name")]
@@ -91,6 +88,22 @@ namespace OnlineStore.Models
         [Required]
         public string ExpirationYear { get; set; }
         public Address[] Addresses { get; internal set; }
+
+        [Display(Name = "Month")]
+        public string Month { get; set; }
+
+        [Display(Name = "Date")]
+        public string date { get; set; }
+
+        [Display(Name = "Day of the Week")]
+        public string day { get; set; }
+
+        [Display(Name = "Time of Day (in military time)")]
+        public string time { get; set; }
+
+        [Display(Name = "Time/Date of Service")]
+        public string occasion { get; set; }
+
     }
 
 }

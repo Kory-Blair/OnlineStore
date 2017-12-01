@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using Braintree;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,6 +17,7 @@ namespace OnlineStore.Controllers
     {
         // GET: Account
         PaymentService paymentService = new PaymentService();
+
         [Authorize]
         public ActionResult Index()
         {
@@ -67,10 +72,11 @@ namespace OnlineStore.Controllers
         {
             var userManager = HttpContext.GetOwinContext().GetUserManager<UserManager<IdentityUser>>();
             IdentityUser user = new IdentityUser { Email = username, UserName = username };
-
             IdentityResult result = userManager.Create(user, password);
+
             if (result.Succeeded)
             {
+                
                 var userIdentity = userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
                 HttpContext.GetOwinContext().Authentication.SignIn(new Microsoft.Owin.Security.AuthenticationProperties
                 {

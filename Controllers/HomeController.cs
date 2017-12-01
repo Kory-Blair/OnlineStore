@@ -15,7 +15,7 @@ namespace OnlineStore.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "A little bit about ISRL:";
+            ViewBag.Message = "A little bit about ITRL:";
 
             return View();
         }

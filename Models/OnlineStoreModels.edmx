@@ -92,6 +92,10 @@
           <Property Name="Tax" Type="money" />
           <Property Name="SubTotal" Type="money" />
           <Property Name="Total" Type="money" />
+          <Property Name="Month" Type="nvarchar" MaxLength="50" />
+          <Property Name=" Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="Day of the Week" Type="nvarchar" MaxLength="50" />
+          <Property Name="Time" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Recipient">
           <Key>
@@ -114,8 +118,8 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" />
           <Property Name="Option" Type="nvarchar" MaxLength="1" />
-          <Property Name="Price Multiplier" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="Savings" Type="int" />
+          <Property Name="Price Multiplier" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Savings" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Recurrence_Purchase" Type="int" />
         </EntityType>
         <EntityType Name="ScheduledService">
@@ -557,6 +561,10 @@
           <Property Name="Tax" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="SubTotal" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Month" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="C_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Day_of_the_Week" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Customization" Relationship="OnlineStoreModel.FK_Purchase_Customization" FromRole="Purchase" ToRole="Customization" />
           <NavigationProperty Name="Recurrence" Relationship="OnlineStoreModel.FK_Purchase_Recurrence" FromRole="Purchase" ToRole="Recurrence" />
           <NavigationProperty Name="Service" Relationship="OnlineStoreModel.FK_Purchase_Service" FromRole="Purchase" ToRole="Service" />
@@ -586,8 +594,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Option" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-          <Property Name="Price_Multiplier" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Savings" Type="Int32" />
+          <Property Name="Price_Multiplier" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Savings" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Recurrence_Purchase" Type="Int32" />
           <NavigationProperty Name="Purchases" Relationship="OnlineStoreModel.FK_Purchase_Recurrence" FromRole="Recurrence" ToRole="Purchase" />
           <NavigationProperty Name="Purchase" Relationship="OnlineStoreModel.FK_Recurrence_Purchase" FromRole="Recurrence" ToRole="Purchase" />
@@ -858,6 +866,10 @@
           <EntitySetMapping Name="Purchases">
             <EntityTypeMapping TypeName="OnlineStoreModel.Purchase">
               <MappingFragment StoreEntitySet="Purchase">
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Day_of_the_Week" ColumnName="Day of the Week" />
+                <ScalarProperty Name="C_Date" ColumnName=" Date" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
                 <ScalarProperty Name="Total" ColumnName="Total" />
                 <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
                 <ScalarProperty Name="Tax" ColumnName="Tax" />

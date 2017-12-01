@@ -32,45 +32,43 @@
                 <tr>
                     <th>Item</th>
                     <th>Frequency</th>
-                    <th>Price</th>
+                    <th></th>
                     <th>Item Total</th>
                 </tr>
             </thead>
             <tbody>
-                
+
                 <tr>
 
-                        <td>
-                           @Model.CurrentCart.Service.Name
-                           @Html.HiddenFor(m => m.CurrentCart.Service.Name)
-                        </td>
-                        <td>
-                           
+                    <td>
+                        @Model.CurrentCart.Service.Name
+                        @Html.HiddenFor(m => m.CurrentCart.Service.Name)
+                    </td>
+                    <td>
+                        @Model.CurrentCart.Recurrence.Name
 
-                        </td>
-                        <td>
-                            @((Model.CurrentCart.Service.Price ?? 0).ToString("C"))
-                            @Html.HiddenFor(m => m.CurrentCart.Service.Price)
-                        </td>
-                        <td>
-                            @((Model.CurrentCart.SubTotal ?? 0).ToString("C"))
-                        </td>
-                    </tr>
-                
+                    </td>
+                    <td></td>
+                    <td>
+                        @((Model.CurrentCart.Service.Price ?? 0).ToString("C"))
+                    </td>
+                </tr>
+
             </tbody>
             <tfoot>
+                <tr>
+                    <th colspan="3">Frequency Discount</th>
+                    <th>
+                        @((Model.CurrentCart.Recurrence.Savings ?? 0) + "%")
+                    </th>
+                </tr>
                 <tr>
                     <th colspan="3">Subtotal</th>
                     <th>
                         @((Model.CurrentCart.SubTotal ?? 0).ToString("C"))
                     </th>
                 </tr>
-                <tr>
-                    <th colspan="3">Shipping and Handling</th>
-                    <th>
-                        @((Model.CurrentCart.ShippingAndHandling ?? 0).ToString("C"))
-                    </th>
-                </tr>
+
                 <tr>
                     <th colspan="3">Tax</th>
                     <th>
@@ -81,29 +79,67 @@
                     <th colspan="3">Total</th>
                     <th>
                         @((Model.CurrentCart.Total ?? 0).ToString("C"))
-                   </th>
+                    </th>
                 </tr>
             </tfoot>
         </table>
     </div>
 
     <div class="col-xs-12 col-sm-6">
+
         @using (Html.BeginForm())
         {
-            <div class="alert alert-danger">
-                @Html.ValidationSummary(false)
-            </div>
+            if (!(ViewData.ModelState.IsValid))
+            {
+                <div class="alert alert-danger">
+                    @Html.ValidationSummary(false)
+                </div>
+            }
+
+                    <div class="alert alert-danger">
+                        @Html.ValidationSummary(false)
+                    </div>
+                }
+
+
             <div class="form-group">
+
+                @Html.LabelFor(m => m.ContactEmail, new { @class = "control-label" })
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @Html.TextBoxFor(m => m.ContactEmail, new { @class = "form-control", placeholder = "Your Email Address", disabled = "disabled" })
+                    @Html.HiddenFor(m => m.ContactEmail)
+                }
+                else
+                {
+                    @Html.TextBoxFor(m => m.ContactEmail, new { @class = "form-control", placeholder = "Your Email Address" })
+                }
+                @Html.ValidationMessageFor(m => m.ContactEmail)
+            </div>
+           
+                <div class="form-group">
+                    <label for="addressId">Choose an address</label>
+                    <select name="addressId" id="addressId" class="form-control">
+                        <option value="">New Address</option>
+                        @foreach (var address in Model.Addresses)
+                        {
+                            <option value="@address.Id">@address.FirstName @address.LastName @address.StreetAddress @address.ExtendedAddress @address.Locality @address.Region @address.PostalCode @address.CountryCodeAlpha2</option>
+                        }
+                    </select>
+                </div>
+            
+            <div id="newAddress">
+                <div class="form-group">
                 @Html.LabelFor(m => m.ContactName, new { @class = "control-label" })
                 @Html.TextBoxFor(m => m.ContactName, new { @class = "form-control", placeholder = "Your Name" })
                 @Html.ValidationMessageFor(m => m.ContactName)
             </div>
 
-            <div class="form-group">
+            @*<div class="form-group">
                 @Html.LabelFor(m => m.ContactEmail, new { @class = "control-label" })
                 @Html.TextBoxFor(m => m.ContactEmail, new { @class = "form-control", placeholder = "Your Email Address" })
                 @Html.ValidationMessageFor(m => m.ContactEmail)
-            </div>
+            </div>*@
 
             <div class="form-group">
                 @Html.LabelFor(m => m.ShippingAddress, new { @class = "control-label" })
@@ -130,6 +166,10 @@
             </div>
 
             <div class="form-group">
+                <button class="btn btn-default" id="validateAddress">Validate Address</button>
+            </div>
+                </div>
+            <div class="form-group">
                 @Html.LabelFor(m => m.CreditCardNumber, new { @class = "control-label" })
                 @Html.TextBoxFor(m => m.CreditCardNumber, new { @class = "form-control", placeholder = "0000000000000000" })
                 @Html.ValidationMessageFor(m => m.CreditCardNumber)
@@ -150,23 +190,127 @@
             <div class="form-group">
                 @Html.LabelFor(m => m.ExpirationMonth, new { @class = "control-label" })
                 <div class="form-inline">
-                @Html.DropDownListFor(m => m.ExpirationMonth, months, new { @class="form-control"})
-                    
-                @Html.DropDownListFor(m => m.ExpirationYear, years, new { @class="form-control"})
-                    </div>
+                    @Html.DropDownListFor(m => m.ExpirationMonth, months, new { @class = "form-control" })
+                    @Html.DropDownListFor(m => m.ExpirationYear, years, new { @class = "form-control" })
+                </div>
             </div>
-            
-
-
 
             <input type="submit" class="btn btn-primary" />
-        }
+        
+
+    </div>
+
+
+    <div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="addressModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Please select your corrected address</h4>
+                </div>
+                <div class="modal-body" id="addressModalBody">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="updateAddress">Save changes</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        var addresseses;
+        $("document").ready(function () {
+            $("#addressId").change(this, function () {
+                $("#newAddress .form-control[name=ContactName]").val("");
+                $("#newAddress .form-control[name=ShippingAddress]").val("");
+                $("#newAddress .form-control[name=ShippingCity]").val("");
+                $("#newAddress .form-control[name=ShippingState]").val("");
+                $("#newAddress .form-control[name=ShippingPostalCode]").val("");
+                var addressId = $("#addressId").val();
+                if (addressId !== "") {
+                    var selectedAddress;
+                    for (var i = 0; i < addresses.length; i++) {
+                        if (addresses[i].Id == addressId) {
+                            selectedAddress = addresses[i];
+                            break;
+                        }
+                    }
+                    $("#newAddress .form-control[name=ContactName]").val(selectedAddress.FirstName + " " + selectedAddress.LastName);
+                    if (selectedAddress.ExtendedAddress !== null) {
+                        $("#newAddress .form-control[name=ShippingAddress]").val(selectedAddress.StreetAddress + " " + selectedAddress.ExtendedAddress);
+                    } else {
+                        $("#newAddress .form-control[name=ShippingAddress]").val(selectedAddress.StreetAddress);
+                    }
+
+                    $("#newAddress .form-control[name=ShippingCity]").val(selectedAddress.Locality);
+                    $("#newAddress .form-control[name=ShippingState]").val(selectedAddress.Region);
+                    $("#newAddress .form-control[name=ShippingPostalCode]").val(selectedAddress.PostalCode);
+
+                }
+            });
 
 
+            $("#validateAddress").click(function (e) {
+                console.log("Validate clicked");
+                var street = $("#newAddress .form-control[name=ShippingAddress]").val();
+                var city = $("#newAddress .form-control[name=ShippingCity]").val();
+                var state = $("#newAddress .form-control[name=ShippingState]").val();
+                var zip = $("#newAddress .form-control[name=ShippingPostalCode]").val();
+                var address = {
+                    street: street,
+                    city: city,
+                    state: state,
+                    zip: zip
+                };
+                $.post("/Checkout/ValidateAddress", address, function (data, textStatus, jqXHR) {
+
+                    addresses = data;
+
+                    if (data.length === 0) {
+                        $("#newAddress .form-control[name=ContactName]").parent().addClass("has-error");
+                        $("#newAddress .form-control[name=ShippingAddress]").parent().addClass("has-error");
+                        $("#newAddress .form-control[name=ShippingCity]").parent().addClass("has-error");
+                        $("#newAddress .form-control[name=ShippingState]").parent().addClass("has-error");
+                        $("#newAddress .form-control[name=ShippingPostalCode]").parent().addClass("has-error");
+                        console.log("No matched addresses");
+                    } else if ((data.length === 1) && ((data[0].city === city) && (data[0].state === state) && (data[0].zip === zip) && (data[0].street === street))) {
+
+                        $("#newAddress .form-control[name=ContactName]").parent().addClass("has-success");
+                        $("#newAddress .form-control[name=ShippingAddress]").parent().addClass("has-success");
+                        $("#newAddress .form-control[name=ShippingCity]").parent().addClass("has-success");
+                        $("#newAddress .form-control[name=ShippingState]").parent().addClass("has-success");
+                        $("#newAddress .form-control[name=ShippingPostalCode]").parent().addClass("has-success");
+
+                    } else {
+
+                        $("#addressModalBody").empty();
+                        for (var i = 0; i < data.length; i++)
+                            $("#addressModalBody").append("<input type='radio' name='addressIndex' value='" + i + "' /><div>" + data[i].street + " " + data[i].city + " " + data[i].state + " " + data[i].zip + "</div>")
+
+                        $('#addressModal').modal()
+                    }
 
 
+                    console.log(data);
+
+                });
+                e.preventDefault();
+            });
+
+            $("#updateAddress").click(function (e) {
+                var i = parseInt($("input[name='addressIndex']:checked").val());
+                $("#newAddress .form-control[name=ShippingAddress]").val(addresses[i].street);
+                $("#newAddress .form-control[name=ShippingCity]").val(addresses[i].city);
+                $("#newAddress .form-control[name=ShippingState]").val(addresses[i].state);
+                $("#newAddress .form-control[name=ShippingPostalCode]").val(addresses[i].zip);
+
+            });
+
+        })
+
+        var addresses = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Addresses))');
+    </script>
 }

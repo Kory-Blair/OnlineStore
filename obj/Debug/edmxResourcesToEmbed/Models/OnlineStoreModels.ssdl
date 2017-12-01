@@ -87,6 +87,10 @@
     <Property Name="Tax" Type="money" />
     <Property Name="SubTotal" Type="money" />
     <Property Name="Total" Type="money" />
+    <Property Name="Month" Type="nvarchar" MaxLength="50" />
+    <Property Name=" Date" Type="nvarchar" MaxLength="50" />
+    <Property Name="Day of the Week" Type="nvarchar" MaxLength="50" />
+    <Property Name="Time" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Recipient">
     <Key>
@@ -109,8 +113,8 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="100" />
     <Property Name="Option" Type="nvarchar" MaxLength="1" />
-    <Property Name="Price Multiplier" Type="decimal" Precision="18" Scale="0" />
-    <Property Name="Savings" Type="int" />
+    <Property Name="Price Multiplier" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Savings" Type="decimal" Precision="18" Scale="2" />
     <Property Name="Recurrence_Purchase" Type="int" />
   </EntityType>
   <EntityType Name="ScheduledService">

@@ -155,6 +155,10 @@
     <Property Name="Tax" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="SubTotal" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="Month" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="C_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Day_of_the_Week" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Customization" Relationship="OnlineStoreModel.FK_Purchase_Customization" FromRole="Purchase" ToRole="Customization" />
     <NavigationProperty Name="Recurrence" Relationship="OnlineStoreModel.FK_Purchase_Recurrence" FromRole="Purchase" ToRole="Recurrence" />
     <NavigationProperty Name="Service" Relationship="OnlineStoreModel.FK_Purchase_Service" FromRole="Purchase" ToRole="Service" />
@@ -184,8 +188,8 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <Property Name="Option" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
-    <Property Name="Price_Multiplier" Type="Decimal" Precision="18" Scale="0" />
-    <Property Name="Savings" Type="Int32" />
+    <Property Name="Price_Multiplier" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Savings" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="Recurrence_Purchase" Type="Int32" />
     <NavigationProperty Name="Purchases" Relationship="OnlineStoreModel.FK_Purchase_Recurrence" FromRole="Recurrence" ToRole="Purchase" />
     <NavigationProperty Name="Purchase" Relationship="OnlineStoreModel.FK_Recurrence_Purchase" FromRole="Recurrence" ToRole="Purchase" />

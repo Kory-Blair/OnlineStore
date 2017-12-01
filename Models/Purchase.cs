@@ -36,6 +36,10 @@ namespace OnlineStore.Models
         public Nullable<decimal> Tax { get; set; }
         public Nullable<decimal> SubTotal { get; set; }
         public Nullable<decimal> Total { get; set; }
+        public string Month { get; set; }
+        public string C_Date { get; set; }
+        public string Day_of_the_Week { get; set; }
+        public string Time { get; set; }
     
         public virtual Customization Customization { get; set; }
         public virtual Recurrence Recurrence { get; set; }

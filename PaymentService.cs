@@ -88,14 +88,19 @@ namespace OnlineStore
                 CardholderName = cardholderName,
                 CVV = cvv,
                 Number = cardNumber,
-                ExpirationYear = expirationMonth,
-                ExpirationMonth = expirationYear
+                ExpirationYear = expirationYear,
+                ExpirationMonth = expirationMonth
             };
             var result = gateway.Transaction.Sale(transaction);
 
             return result.Message;
+            
 
+        }
 
+        internal string AuthorizeCard(string contactEmail, decimal total, decimal? tax, string trackingNumber, string shippingAddress, string cardholderName, string cVV, string creditCardNumber, string expirationMonth, string expirationYear)
+        {
+            throw new NotImplementedException();
         }
     }
 }

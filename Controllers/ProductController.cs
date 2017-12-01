@@ -54,6 +54,7 @@ namespace OnlineStore.Controllers
             }
 
             purchase.ServiceId = model.Id;
+            purchase.RecurrenceId = null;
             purchase.Price = model.Price;
             db.SaveChanges();
             TempData.Clear();

@@ -117,3 +117,4 @@ C:\Users\kory\source\repos\OnlineStore\OnlineStore\bin\Braintree.dll
 C:\Users\kory\source\repos\OnlineStore\OnlineStore\bin\SendGrid.dll
 C:\Users\kory\source\repos\OnlineStore\OnlineStore\bin\SendGrid.pdb
 C:\Users\kory\source\repos\OnlineStore\OnlineStore\bin\SendGrid.xml
+C:\Users\kory\source\repos\OnlineStore\OnlineStore\bin\smartystreets-dotnet-sdk.dll

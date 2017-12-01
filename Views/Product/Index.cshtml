@@ -12,20 +12,21 @@
             <div class="well">
                 <h2>@product.Name</h2>
                 <img class="img-circle" style="max-width: 288px; max-height:229px" src="@product.Image" />
-                <p class="text-right" style="font:bold; font-size:20px">@((product.Price ?? 0).ToString ("C"))</p>
+                <p class="text-right" style="font:bold; font-weight:400; font-size:20px">@((product.Price ?? 0).ToString("C"))</p>
             </div>
+            <div style="margin-left:66px;">
             @using (Html.BeginForm("Index", "Product", FormMethod.Post, new { @class = "myClass" }))
             {
                 <input name="id" type="hidden" value="@product.Id" />
-
                 <input name="name" type="hidden" value="@product.Name" />
                 <input name="price" type="hidden" value="@product.Price" />
                 <input type="submit" class="btn btn-primary" value="Get this" />
                 @Html.ActionLink("More Info", "Details", new { id = product.Id }, new { @class = "btn btn-default" })
             }
-            
+
         </div>
+            </div>
     }
-    
+
 </div>
 

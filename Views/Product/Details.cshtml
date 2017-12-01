@@ -49,7 +49,25 @@
         </div>
     </div>
 </div>
-<p>
+<div style="padding-left:300px;">
+    @using (Html.BeginForm("Index", "Product", FormMethod.Post, new { @class = "myClass" }))
+            {
+        <input name="id" type="hidden" value="@Model.Id" />
 
-    @Html.ActionLink("Back to Products", "Index")
-</p>
+                <input name="name" type="hidden" value="@Model.Name" />
+                <input name="price" type="hidden" value="@Model.Price" />
+                <input type="submit" class="btn btn-primary" value="Get This Product" />
+
+    }
+
+
+    <p style="margin-top: 15px; margin-left:12px;">
+        @Html.ActionLink("Back to Products", "Index")
+
+    </p>
+    <p>
+
+
+
+    </p>
+</div>
