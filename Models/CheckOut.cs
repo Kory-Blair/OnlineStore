@@ -93,16 +93,21 @@ namespace OnlineStore.Models
         public string Month { get; set; }
 
         [Display(Name = "Date")]
-        public string date { get; set; }
+        public string Date { get; set; }
 
         [Display(Name = "Day of the Week")]
-        public string day { get; set; }
+        public string Day { get; set; }
 
-        [Display(Name = "Time of Day (in military time)")]
-        public string time { get; set; }
+        [Display(Name = "Hour")]
+        public string Hour { get; set; }
 
-        [Display(Name = "Time/Date of Service")]
-        public string occasion { get; set; }
+        [Display(Name = "Minute")]
+        public string Minute { get; set; }
+
+        [Display(Name ="AM PM")]
+        public string AMPM { get; set; }
+
+        
 
     }
 

@@ -46,7 +46,7 @@ namespace OnlineStore.Controllers
 
         }
         [HttpPost]
-        public ActionResult Index(Models.Purchase model, int? Recurrence)
+        public ActionResult Index(Models.Purchase model, int? Recurrence, string Day, string Time, string Minutes, string Month, string Date, string AMPM)
         {
 
             if (Request.Cookies.AllKeys.Contains("purchaseId"))
@@ -64,11 +64,18 @@ namespace OnlineStore.Controllers
             }
 
             model.RecurrenceId = Recurrence;
-
+            model.Day = Day;
+            model.Time = Time;
+            model.Minutes = Minutes;
+            model.Month = Month;
+            model.Date = Date;
+            model.AMPM = AMPM;
 
             db.SaveChanges();
 
             model.Price = model.Service.Price * model.Recurrence.Price_Multiplier;
+            
+
             //model.Recurrence.Savings = null;
             
 

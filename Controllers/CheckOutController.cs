@@ -33,6 +33,15 @@ namespace OnlineStore.Controllers
             int purchaseId = int.Parse(Request.Cookies["purchaseId"].Value);
             details.CurrentCart = db.Purchases.Find(purchaseId);
 
+            
+            details.Day = details.CurrentCart.Day;
+            details.Minute = details.CurrentCart.Minutes;
+            details.Hour = details.CurrentCart.Time;
+            details.Month = details.CurrentCart.Month;
+            details.AMPM = details.CurrentCart.AMPM;
+            details.CurrentCart.Date = details.Date;
+            
+
             details.PriceModifer = details.CurrentCart.Recurrence.Price_Multiplier;
             details.CurrentCart.Price = details.CurrentCart.Service.Price * details.PriceModifer;
             details.CurrentCart.SubTotal = details.CurrentCart.Price;

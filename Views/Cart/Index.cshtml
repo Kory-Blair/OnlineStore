@@ -117,6 +117,7 @@
                     @(((Model.Price ?? 0) * 1.1m).ToString("C"))
                 </th>
             </tr>
+           
 
         </tfoot>
     </table>
@@ -137,16 +138,21 @@
                         <div class="form-inline" style="margin-bottom:10px;">
                             @Html.LabelFor(m => m.Month, new { @class = "control-label" })
                             @Html.DropDownListFor(m => m.Month, month, new { @class = "form-control" })
+                            @Html.HiddenFor(m => m.Month)
                         </div>
                         <div class="form-inline" style="margin-bottom:10px; margin-right:10px;">
                             @Html.LabelFor(m => m.Date, new { @class = "control-label" })
                             @Html.DropDownListFor(m => m.Date, date, new { @class = "form-control", @style= "margin-left:10px;" })
+                            @Html.HiddenFor(m => m.Date)
                         </div>
                         <div class="form-inline">
                             @Html.LabelFor(m => m.Time, new { @class = "control-label" })
                             @Html.DropDownListFor(m => m.Time, hour, new { @class = "form-control", @style= "margin-left:9px;" })
+                            @Html.HiddenFor(m => m.Time)
                             @Html.DropDownListFor(m => m.Minutes, minutes, new { @class= "form-control"})
+                            @Html.HiddenFor(m => m.Minutes)
                             @Html.DropDownListFor(m => m.AMPM, ampm, new { @class = "form-control" })
+                            @Html.HiddenFor(m => m.AMPM)
                         </div>
                     </div>
                 }
@@ -156,16 +162,21 @@
                         <div class="form-inline" style="margin-bottom:10px;">
                             @Html.LabelFor(m => m.Month, new { @class = "control-label" })
                             @Html.DropDownListFor(m => m.Month, month, new { @class = "form-control" })
+                            @Html.HiddenFor(m => m.Month)
                         </div>
                         <div class="form-inline" style="margin-bottom:10px; margin-right:10px;">
                             @Html.LabelFor(m => m.Date, new { @class = "control-label" })
                             @Html.DropDownListFor(m => m.Date, date, new { @class = "form-control", @style = "margin-left:10px;" })
+                            @Html.HiddenFor(m => m.Date)
                         </div>
                         <div class="form-inline">
                             @Html.LabelFor(m => m.Time, new { @class = "control-label" })
                             @Html.DropDownListFor(m => m.Time, hour, new { @class = "form-control", @style = "margin-left:9px;" })
+                            @Html.HiddenFor(m => m.Time)
                             @Html.DropDownListFor(m => m.Minutes, minutes, new { @class = "form-control" })
+                            @Html.HiddenFor(m => m.Minutes)
                             @Html.DropDownListFor(m => m.AMPM, ampm, new { @class = "form-control" })
+                            @Html.HiddenFor(m => m.AMPM)
                        
                         </div>
                     </div>}
@@ -176,12 +187,16 @@
                         <div class="form-inline" style="margin-bottom:10px; margin-right:10px;">
                             @Html.LabelFor(m => m.Date, new { @class = "control-label" })
                             @Html.DropDownListFor(m => m.Date, date, new { @class = "form-control", @style = "margin-left:10px;" })
+                            @Html.HiddenFor(m => m.Date)
                         </div>
                         <div class="form-inline">
                             @Html.LabelFor(m => m.Time, new { @class = "control-label" })
                             @Html.DropDownListFor(m => m.Time, hour, new { @class = "form-control", @style = "margin-left:9px;" })
+                            @Html.HiddenFor(m => m.Time)
                             @Html.DropDownListFor(m => m.Minutes, minutes, new { @class = "form-control" })
+                            @Html.HiddenFor(m => m.Minutes)
                             @Html.DropDownListFor(m => m.AMPM, ampm, new { @class = "form-control" })
+                            @Html.HiddenFor(m => m.AMPM)
 
                         </div>
                     </div>}
@@ -192,12 +207,16 @@
                         <div class="form-inline" style="margin-bottom:10px; margin-right:10px;">
                             @Html.LabelFor(m => m.Day, new { @class = "control-label" })
                             @Html.DropDownListFor(m => m.Day, day, new { @class = "form-control", @style = "margin-left:10px;" })
+                            @Html.HiddenFor(m => m.Day)
                         </div>
                             <div class="form-inline">
                                 @Html.LabelFor(m => m.Time, new { @class = "control-label" })
                                 @Html.DropDownListFor(m => m.Time, hour, new { @class = "form-control", @style = "margin-left:9px;" })
+                                @Html.HiddenFor(m => m.Time)
                                 @Html.DropDownListFor(m => m.Minutes, minutes, new { @class = "form-control" })
+                                @Html.HiddenFor(m => m.Minutes)
                                 @Html.DropDownListFor(m => m.AMPM, ampm, new { @class = "form-control" })
+                                @Html.HiddenFor(m => m.AMPM)
                         </div>
                     </div>}
                 if (Model.Recurrence.Id == 6)
@@ -206,8 +225,11 @@
                         <div class="form-inline">
                             @Html.LabelFor(m => m.Time, new { @class = "control-label" })
                             @Html.DropDownListFor(m => m.Time, hour, new { @class = "form-control", @style = "margin-left:9px;" })
+                            @Html.HiddenFor(m => m.Time)
                             @Html.DropDownListFor(m => m.Minutes, minutes, new { @class = "form-control" })
+                            @Html.HiddenFor(m => m.Minutes)
                             @Html.DropDownListFor(m => m.AMPM, ampm, new { @class = "form-control" })
+                            @Html.HiddenFor(m => m.AMPM)
                         
                         </div>
                     </div>}
