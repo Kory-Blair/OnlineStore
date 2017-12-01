@@ -156,9 +156,11 @@
     <Property Name="SubTotal" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="Total" Type="Decimal" Precision="19" Scale="4" />
     <Property Name="Month" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="C_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="Day_of_the_Week" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Day" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Time" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AMPM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Minutes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Customization" Relationship="OnlineStoreModel.FK_Purchase_Customization" FromRole="Purchase" ToRole="Customization" />
     <NavigationProperty Name="Recurrence" Relationship="OnlineStoreModel.FK_Purchase_Recurrence" FromRole="Purchase" ToRole="Recurrence" />
     <NavigationProperty Name="Service" Relationship="OnlineStoreModel.FK_Purchase_Service" FromRole="Purchase" ToRole="Service" />

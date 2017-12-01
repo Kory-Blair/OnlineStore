@@ -69,9 +69,11 @@
     <EntitySetMapping Name="Purchases">
       <EntityTypeMapping TypeName="OnlineStoreModel.Purchase">
         <MappingFragment StoreEntitySet="Purchase">
+          <ScalarProperty Name="Minutes" ColumnName="Minutes" />
+          <ScalarProperty Name="AMPM" ColumnName="AMPM" />
           <ScalarProperty Name="Time" ColumnName="Time" />
-          <ScalarProperty Name="Day_of_the_Week" ColumnName="Day of the Week" />
-          <ScalarProperty Name="C_Date" ColumnName=" Date" />
+          <ScalarProperty Name="Day" ColumnName="Day" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Month" ColumnName="Month" />
           <ScalarProperty Name="Total" ColumnName="Total" />
           <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />

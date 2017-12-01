@@ -6,18 +6,18 @@
     <edmx:Diagrams>
       <Diagram DiagramId="db880341d3cd490f9aebc5805555c932" Name="Diagram1">
         <EntityTypeShape EntityType="OnlineStoreModel.Scheduled_Service" Width="1.5" PointX="7.875" PointY="3.125" />
-        <EntityTypeShape EntityType="OnlineStoreModel.AspNetRole" Width="1.5" PointX="9.75" PointY="10.5" />
-        <EntityTypeShape EntityType="OnlineStoreModel.AspNetUserClaim" Width="1.5" PointX="14.25" PointY="9" />
-        <EntityTypeShape EntityType="OnlineStoreModel.AspNetUserLogin" Width="1.5" PointX="14.25" PointY="11.75" />
-        <EntityTypeShape EntityType="OnlineStoreModel.AspNetUser" Width="1.5" PointX="12" PointY="9.375" />
+        <EntityTypeShape EntityType="OnlineStoreModel.AspNetRole" Width="1.5" PointX="9.75" PointY="2.5" />
+        <EntityTypeShape EntityType="OnlineStoreModel.AspNetUserClaim" Width="1.5" PointX="14.25" PointY="3.625" />
+        <EntityTypeShape EntityType="OnlineStoreModel.AspNetUserLogin" Width="1.5" PointX="14.25" PointY="1" />
+        <EntityTypeShape EntityType="OnlineStoreModel.AspNetUser" Width="1.5" PointX="12" PointY="1.375" />
         <EntityTypeShape EntityType="OnlineStoreModel.Customization" Width="1.5" PointX="3" PointY="6.75" />
         <EntityTypeShape EntityType="OnlineStoreModel.CustomizationOption" Width="1.5" PointX="5.25" PointY="17.25" />
-        <EntityTypeShape EntityType="OnlineStoreModel.Purchase" Width="1.5" PointX="5.25" PointY="5" />
-        <EntityTypeShape EntityType="OnlineStoreModel.Recipient" Width="1.5" PointX="7.5" PointY="9.75" />
-        <EntityTypeShape EntityType="OnlineStoreModel.Recurrence" Width="1.5" PointX="7.5" PointY="2.875" />
-        <EntityTypeShape EntityType="OnlineStoreModel.ScheduledService" Width="1.5" PointX="7.5" PointY="6.375" />
+        <EntityTypeShape EntityType="OnlineStoreModel.Purchase" Width="1.5" PointX="5.25" PointY="4.75" />
+        <EntityTypeShape EntityType="OnlineStoreModel.Recipient" Width="1.5" PointX="7.5" PointY="6.25" />
+        <EntityTypeShape EntityType="OnlineStoreModel.Recurrence" Width="1.5" PointX="7.5" PointY="9.875" />
+        <EntityTypeShape EntityType="OnlineStoreModel.ScheduledService" Width="1.5" PointX="7.5" PointY="2.875" />
         <EntityTypeShape EntityType="OnlineStoreModel.Service" Width="1.5" PointX="0.75" PointY="6.375" />
-        <EntityTypeShape EntityType="OnlineStoreModel.ServiceRecurrence" Width="1.5" PointX="9.75" PointY="5" />
+        <EntityTypeShape EntityType="OnlineStoreModel.ServiceRecurrence" Width="1.5" PointX="9.75" PointY="8.5" />
         <AssociationConnector Association="OnlineStoreModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="OnlineStoreModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="OnlineStoreModel.FK_Customization_Service" />

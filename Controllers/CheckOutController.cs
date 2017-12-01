@@ -33,7 +33,6 @@ namespace OnlineStore.Controllers
             int purchaseId = int.Parse(Request.Cookies["purchaseId"].Value);
             details.CurrentCart = db.Purchases.Find(purchaseId);
 
-
             details.PriceModifer = details.CurrentCart.Recurrence.Price_Multiplier;
             details.CurrentCart.Price = details.CurrentCart.Service.Price * details.PriceModifer;
             details.CurrentCart.SubTotal = details.CurrentCart.Price;
@@ -99,15 +98,15 @@ namespace OnlineStore.Controllers
                 //decimal? tax = model.CurrentCart.Tax;
 
 
-                string message = payments.AuthorizeCard(model.ContactEmail, (model.CurrentCart.Total ?? .01m), (model.CurrentCart.Tax ?? 0m), model.TrackingNumber, model.ShippingAddress, model.CardholderName, model.CVV, model.CreditCardNumber, model.ExpirationMonth, model.ExpirationYear);
-
+                string message = payments.AuthorizeCard(model.ContactEmail, (model.CurrentCart.Total ?? .01m), (model.CurrentCart.Tax ?? 0m), TrackingNumber, addressId, model.CardholderName, model.CVV, model.CreditCardNumber, model.ExpirationMonth, model.ExpirationYear);
+                Console.WriteLine(message);
                 if (string.IsNullOrEmpty(message))
-                {
+                { 
                     Recipient recipient = new Recipient
                     {
                         Email = model.ContactEmail,
                         Name = model.ContactName,
-                        Address = model.ShippingAddress,
+                        Address = addressId,
                         City = model.ShippingCity,
                         ZipCode = model.ShippingPostalCode,
                         State = model.ShippingState

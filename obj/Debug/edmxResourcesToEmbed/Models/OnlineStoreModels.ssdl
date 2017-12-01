@@ -88,9 +88,11 @@
     <Property Name="SubTotal" Type="money" />
     <Property Name="Total" Type="money" />
     <Property Name="Month" Type="nvarchar" MaxLength="50" />
-    <Property Name=" Date" Type="nvarchar" MaxLength="50" />
-    <Property Name="Day of the Week" Type="nvarchar" MaxLength="50" />
+    <Property Name="Date" Type="nvarchar" MaxLength="50" />
+    <Property Name="Day" Type="nvarchar" MaxLength="50" />
     <Property Name="Time" Type="nvarchar" MaxLength="50" />
+    <Property Name="AMPM" Type="nvarchar" MaxLength="50" />
+    <Property Name="Minutes" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Recipient">
     <Key>
