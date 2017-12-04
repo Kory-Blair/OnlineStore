@@ -241,6 +241,7 @@
 
 <input type="submit" value="Update Date/Time" class="btn btn-default" />
             }
+
     @section Scripts{
         @Scripts.Render("~/bundles/jqueryval")
         <script type="text/javascript">
@@ -269,7 +270,6 @@
 
             })
         })
-
 
         var services = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Service.ServiceRecurrences.Select(x => new { Name = x.Recurrence.Name, ID = x.RecurrenceID, Multiplier = x.PriceMultiplier, Price = x.Service.Price })))');
         </script>

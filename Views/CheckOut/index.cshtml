@@ -24,7 +24,7 @@
 }
 <div class="container">
     <div class="row">
-        <div class="col-xs-12">
+        <div>
             <h2 style="margin-top:30px;">Checkout</h2>
         </div>
         <div class="col-xs-12 col-sm-6">
@@ -84,110 +84,109 @@
                     </tr>
                 </tfoot>
             </table>
-        </div>
-
-        <div class="col-xs-6">
-            <h2>Date and Time of Service</h2>
+            <h3>Date and Time of Service</h3>
             <div class="well well-sm" style="max-height:200px;">
 
-
-    @{ if (Model.CurrentCart.RecurrenceId == 2)
+                @{ if (Model.CurrentCart.RecurrenceId == 2)
             {
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Month</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="font-size:16px;">@Model.CurrentCart.Month</td>
-                        <td style="font-size: 16px;">@Model.CurrentCart.Date</td>
-                        <td style="font-size: 16px;">@(Model.CurrentCart.Time): @(Model.CurrentCart.Minutes) @(Model.CurrentCart.AMPM) </td>
-                    </tr>
-                    </table>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-size:16px;">@Model.CurrentCart.Month</td>
+                                    <td style="font-size: 16px;">@Model.CurrentCart.Date</td>
+                                    <td style="font-size: 16px;">@(Model.CurrentCart.Time): @(Model.CurrentCart.Minutes) @(Model.CurrentCart.AMPM) </td>
+                                </tr>
+                        </table>
 
-        }
-        if (Model.CurrentCart.RecurrenceId == 3)
-        {
+                    }
+                    if (Model.CurrentCart.RecurrenceId == 3)
+                    {
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Month</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="font-size:16px;">@Model.CurrentCart.Month</td>
-                        <td style="font-size: 16px;">@Model.CurrentCart.Date</td>
-                        <td style="font-size: 16px;">@(Model.CurrentCart.Time): @(Model.CurrentCart.Minutes) @(Model.CurrentCart.AMPM) </td>
-                    </tr>
-            </table>
-        }
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Month</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-size:16px;">@Model.CurrentCart.Month</td>
+                                    <td style="font-size: 16px;">@Model.CurrentCart.Date</td>
+                                    <td style="font-size: 16px;">@(Model.CurrentCart.Time): @(Model.CurrentCart.Minutes) @(Model.CurrentCart.AMPM) </td>
+                                </tr>
+                        </table>
+                    }
 
-        if (Model.CurrentCart.RecurrenceId == 4)
-        {
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Day of the Month</th>
-                        <th>Time</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="font-size: 16px;">@Model.CurrentCart.Date</td>
-                        <td style="font-size: 16px;">@(Model.CurrentCart.Time): @(Model.CurrentCart.Minutes) @(Model.CurrentCart.AMPM) </td>
-                    </tr>
-            </table>
-        }
+                    if (Model.CurrentCart.RecurrenceId == 4)
+                    {
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Day of the Month</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-size: 16px;">@Model.CurrentCart.Date</td>
+                                    <td style="font-size: 16px;">@(Model.CurrentCart.Time): @(Model.CurrentCart.Minutes) @(Model.CurrentCart.AMPM) </td>
+                                </tr>
+                        </table>
+                    }
 
-        if (Model.CurrentCart.RecurrenceId == 5)
-        {
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Day of the Week</th>
-                        <th>Time</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="font-size: 16px;">@Model.CurrentCart.Day</td>
-                        <td style="font-size: 16px;">@(Model.CurrentCart.Time): @(Model.CurrentCart.Minutes) @(Model.CurrentCart.AMPM) </td>
-                    </tr>
-            </table>
-        }
+                    if (Model.CurrentCart.RecurrenceId == 5)
+                    {
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Day of the Week</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-size: 16px;">@Model.CurrentCart.Day</td>
+                                    <td style="font-size: 16px;">@(Model.CurrentCart.Time): @(Model.CurrentCart.Minutes) @(Model.CurrentCart.AMPM) </td>
+                                </tr>
+                        </table>
+                    }
 
-        if (Model.CurrentCart.RecurrenceId == 6)
-        {
+                    if (Model.CurrentCart.RecurrenceId == 6)
+                    {
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Time of Service</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="font-size: 16px;">@(Model.CurrentCart.Time): @(Model.CurrentCart.Minutes) @(Model.CurrentCart.AMPM) </td>
-                    </tr>
-            </table>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Time of Service</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-size: 16px;">@(Model.CurrentCart.Time): @(Model.CurrentCart.Minutes) @(Model.CurrentCart.AMPM) </td>
+                                </tr>
+                        </table>
 
                     }
 
-                    }
+                }
+            </div>
+
         </div>
-        </div>
+
+        
         
     
         <div class="col-xs-12 col-sm-6">
-
+            <h3>Shipping Address</h3>
             @using (Html.BeginForm())
             {
                 if (!(ViewData.ModelState.IsValid))
@@ -199,7 +198,7 @@
 
 
                 <div class="form-group">
-
+                    
                     @Html.LabelFor(m => m.ContactEmail, new { @class = "control-label" })
                     @if (User.Identity.IsAuthenticated)
                 {
@@ -289,6 +288,7 @@
 
             }
         </div>
+  
 
 
         <div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="addressModalLabel">
