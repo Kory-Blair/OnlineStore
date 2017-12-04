@@ -22,212 +22,196 @@
     }
 
 }
-<div class="row">
-    <div class="col-xs-12">
-        <h2>Checkout</h2>
-    </div>
-    <div class="col-xs-12 col-sm-6">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Frequency</th>
-                    <th></th>
-                    <th>Item Total</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                <tr>
-
-                    <td>
-                        @Model.CurrentCart.Service.Name
-                        @Html.HiddenFor(m => m.CurrentCart.Service.Name)
-                    </td>
-                    <td>
-                        @Model.CurrentCart.Recurrence.Name
-
-                    </td>
-                    <td></td>
-                    <td>
-                        @((Model.CurrentCart.Service.Price ?? 0).ToString("C"))
-                    </td>
-                </tr>
-
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th colspan="3">Frequency Discount</th>
-                    <th>
-                        @((Model.CurrentCart.Recurrence.Savings ?? 0) + "%")
-                    </th>
-                </tr>
-                <tr>
-                    <th colspan="3">Subtotal</th>
-                    <th>
-                        @((Model.CurrentCart.SubTotal ?? 0).ToString("C"))
-                    </th>
-                </tr>
-
-                <tr>
-                    <th colspan="3">Tax</th>
-                    <th>
-                        @((Model.CurrentCart.Tax ?? 0).ToString("C"))
-                    </th>
-                </tr>
-                <tr>
-                    <th colspan="3">Total</th>
-                    <th>
-                        @((Model.CurrentCart.Total ?? 0).ToString("C"))
-                    </th>
-                </tr>
-            </tfoot>
-        </table>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <h2 style="margin-top:30px;">Checkout</h2>
         </div>
-    </div>
-        <h2>Date and Time of Service</h2>
-        <div class="well well-sm" style="max-height:269px;">
-            <h3>Date and Time of Service</h3>
+        <div class="col-xs-12 col-sm-6">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Frequency</th>
+                        <th></th>
+                        <th>Item Total</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-              @{ if (Model.CurrentCart.RecurrenceId == 2)
-                  {
+                    <tr>
 
-                            <div class="form-inline" style="margin-bottom:10px;">
-                                @Html.LabelFor(m => m.Month, new { @class = "control-label" })
-                                @Model.CurrentCart.Month
-                                @Html.HiddenFor(m => m.Month)
-                            </div>
-                            <div class="form-inline" style="margin-bottom:10px;">
-                                @Html.LabelFor(m => m.Date, new { @class = "control-label" })
-                                @Model.CurrentCart.Date
-                                @Html.HiddenFor(m => m.Date)
-                            </div>
-                            <div class="form-inline">
-                              <p style="font-weight:bold;">Time</p>
-                                @Model.CurrentCart.Time
-                                @Html.HiddenFor(m => m.Hour) :
-                                @Model.CurrentCart.Minutes
-                                @Html.HiddenFor(m => m.Minute)
-                                @Model.CurrentCart.AMPM
-                                @Html.HiddenFor(m => m.AMPM)
-                            </div>
+                        <td>
+                            @Model.CurrentCart.Service.Name
+                            @Html.HiddenFor(m => m.CurrentCart.Service.Name)
+                        </td>
+                        <td>
+                            @Model.CurrentCart.Recurrence.Name
 
-                  }
-                  if (Model.CurrentCart.RecurrenceId == 3)
-                  {
-                        <div class="form-group">
-                            <div class="form-inline" style="margin-bottom:10px;">
-                                @Html.LabelFor(m => m.Month, new { @class = "control-label" })
-                                @Model.CurrentCart.Month
-                                @Html.HiddenFor(m => m.Month)
-                            </div>
-                            <div class="form-inline" style="margin-bottom:10px; margin-right:10px;">
-                                @Html.LabelFor(m => m.Date, new { @class = "control-label" })
-                                @Model.CurrentCart.Date
-                                @Html.HiddenFor(m => m.Date)
-                            </div>
-                            <div class="form-inline">
-                                @Html.LabelFor(m => m.Hour, new { @class = "control-label" })
-                                @Model.CurrentCart.Time
-                                @Html.HiddenFor(m => m.Hour):
-                                @Model.CurrentCart.Minutes
-                                @Html.HiddenFor(m => m.Minute)
-                                @Model.CurrentCart.AMPM
-                                @Html.HiddenFor(m => m.AMPM)
+                        </td>
+                        <td></td>
+                        <td>
+                            @((Model.CurrentCart.Service.Price ?? 0).ToString("C"))
+                        </td>
+                    </tr>
 
-                            </div>
-                        </div>}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="3">Frequency Discount</th>
+                        <th>
+                            @((Model.CurrentCart.Recurrence.Savings ?? 0) + "%")
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="3">Subtotal</th>
+                        <th>
+                            @((Model.CurrentCart.SubTotal ?? 0).ToString("C"))
+                        </th>
+                    </tr>
 
-                  if (Model.CurrentCart.RecurrenceId == 4)
-                  {
-                        <div class="form-group">
-                            <div class="form-inline" style="margin-bottom:10px; margin-right:10px;">
-                                @Html.LabelFor(m => m.Date, new { @class = "control-label" })
-                                @Model.CurrentCart.Date
-                                @Html.HiddenFor(m => m.Date)
-                            </div>
-                            <div class="form-inline">
-                                @Html.LabelFor(m => m.Hour, new { @class = "control-label" })
-                                @Model.CurrentCart.Time
-                                @Html.HiddenFor(m => m.Hour):
-                                @Model.CurrentCart.Minutes
-                                @Html.HiddenFor(m => m.Minute)
-                                @Model.CurrentCart.AMPM
-                                @Html.HiddenFor(m => m.AMPM)
+                    <tr>
+                        <th colspan="3">Tax</th>
+                        <th>
+                            @((Model.CurrentCart.Tax ?? 0).ToString("C"))
+                        </th>
+                    </tr>
+                    <tr>
+                        <th colspan="3">Total</th>
+                        <th>
+                            @((Model.CurrentCart.Total ?? 0).ToString("C"))
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
 
-                            </div>
-                        </div>}
-                  if (Model.CurrentCart.RecurrenceId == 5)
-                  {
-                        <div class="form-group">
-
-                            <div class="form-inline" style="margin-bottom:10px; margin-right:10px;">
-                                @Html.LabelFor(m => m.Day, new { @class = "control-label" })
-                                @Model.CurrentCart.Day
-                                @Html.HiddenFor(m => m.Day)
-                            </div>
-                            <div class="form-inline">
-                                @Html.LabelFor(m => m.Hour, new { @class = "control-label" })
-                                @Model.CurrentCart.Time
-                                @Html.HiddenFor(m => m.Hour):
-                                @Model.CurrentCart.Minutes
-                                @Html.HiddenFor(m => m.Minute)
-                                @Model.CurrentCart.AMPM
-                                @Html.HiddenFor(m => m.AMPM)
-
-                            </div>
-                        </div>}
-                  if (Model.CurrentCart.RecurrenceId == 6)
-                  {
-
-                            <div class="form-inline">
-                                @Html.LabelFor(m => m.Hour, new { @class = "control-label" })
-                                @Model.CurrentCart.Time
-                                @Html.HiddenFor(m => m.Hour):
-                                @Model.CurrentCart.Minutes
-                                @Html.HiddenFor(m => m.Minute)
-                                @Model.CurrentCart.AMPM
-                                @Html.HiddenFor(m => m.AMPM)
-
-                            </div>
-                      }
+        <div class="col-xs-6">
+            <h2>Date and Time of Service</h2>
+            <div class="well well-sm" style="max-height:200px;">
 
 
-                  }
-        
-    </div>
-
-    <div class="col-xs-12 col-sm-6">
-
-        @using (Html.BeginForm())
-        {
-            if (!(ViewData.ModelState.IsValid))
+    @{ if (Model.CurrentCart.RecurrenceId == 2)
             {
-                <div class="alert alert-danger">
-                    @Html.ValidationSummary(false)
-                </div>
-            }
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Month</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-size:16px;">@Model.CurrentCart.Month</td>
+                        <td style="font-size: 16px;">@Model.CurrentCart.Date</td>
+                        <td style="font-size: 16px;">@(Model.CurrentCart.Time): @(Model.CurrentCart.Minutes) @(Model.CurrentCart.AMPM) </td>
+                    </tr>
+                    </table>
 
+        }
+        if (Model.CurrentCart.RecurrenceId == 3)
+        {
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Month</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-size:16px;">@Model.CurrentCart.Month</td>
+                        <td style="font-size: 16px;">@Model.CurrentCart.Date</td>
+                        <td style="font-size: 16px;">@(Model.CurrentCart.Time): @(Model.CurrentCart.Minutes) @(Model.CurrentCart.AMPM) </td>
+                    </tr>
+            </table>
+        }
+
+        if (Model.CurrentCart.RecurrenceId == 4)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Day of the Month</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-size: 16px;">@Model.CurrentCart.Date</td>
+                        <td style="font-size: 16px;">@(Model.CurrentCart.Time): @(Model.CurrentCart.Minutes) @(Model.CurrentCart.AMPM) </td>
+                    </tr>
+            </table>
+        }
+
+        if (Model.CurrentCart.RecurrenceId == 5)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Day of the Week</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-size: 16px;">@Model.CurrentCart.Day</td>
+                        <td style="font-size: 16px;">@(Model.CurrentCart.Time): @(Model.CurrentCart.Minutes) @(Model.CurrentCart.AMPM) </td>
+                    </tr>
+            </table>
+        }
+
+        if (Model.CurrentCart.RecurrenceId == 6)
+        {
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Time of Service</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-size: 16px;">@(Model.CurrentCart.Time): @(Model.CurrentCart.Minutes) @(Model.CurrentCart.AMPM) </td>
+                    </tr>
+            </table>
+
+                    }
+
+                    }
+        </div>
+        </div>
+        
+    
+        <div class="col-xs-12 col-sm-6">
+
+            @using (Html.BeginForm())
+            {
+                if (!(ViewData.ModelState.IsValid))
+                {
                     <div class="alert alert-danger">
                         @Html.ValidationSummary(false)
                     </div>
-
-
-
-            <div class="form-group">
-
-                @Html.LabelFor(m => m.ContactEmail, new { @class = "control-label" })
-                @if (User.Identity.IsAuthenticated)
-                {
-                    @Html.TextBoxFor(m => m.ContactEmail, new { @class = "form-control", placeholder = "Your Email Address", disabled = "disabled" })
-                    @Html.HiddenFor(m => m.ContactEmail)
                 }
-                else
+
+
+                <div class="form-group">
+
+                    @Html.LabelFor(m => m.ContactEmail, new { @class = "control-label" })
+                    @if (User.Identity.IsAuthenticated)
                 {
-                    @Html.TextBoxFor(m => m.ContactEmail, new { @class = "form-control", placeholder = "Your Email Address" })
-                }
-                @Html.ValidationMessageFor(m => m.ContactEmail)
-            </div>
+                        @Html.TextBoxFor(m => m.ContactEmail, new { @class = "form-control", placeholder = "Your Email Address", disabled = "disabled" })
+                        @Html.HiddenFor(m => m.ContactEmail)
+                    }
+                    else
+                    {
+                        @Html.TextBoxFor(m => m.ContactEmail, new { @class = "form-control", placeholder = "Your Email Address" })
+                    }
+                    @Html.ValidationMessageFor(m => m.ContactEmail)
+                </div>
 
                 <div class="form-group">
                     <label for="addressId">Choose an address</label>
@@ -240,99 +224,98 @@
                     </select>
                 </div>
 
-            <div id="newAddress">
+                <div id="newAddress">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ContactName, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.ContactName, new { @class = "form-control", placeholder = "Your Name" })
+                        @Html.ValidationMessageFor(m => m.ContactName)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ShippingAddress, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.ShippingAddress, new { @class = "form-control", placeholder = "Address" })
+                        @Html.ValidationMessageFor(m => m.ShippingAddress)
+                    </div>
+                    
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ShippingCity, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.ShippingCity, new { @class = "form-control", placeholder = "City" })
+                        @Html.ValidationMessageFor(m => m.ShippingCity)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ShippingState, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.ShippingState, new { @class = "form-control", placeholder = "State" })
+                        @Html.ValidationMessageFor(m => m.ShippingState)
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ShippingPostalCode, new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.ShippingPostalCode, new { @class = "form-control", placeholder = "Zip Code" })
+                        @Html.ValidationMessageFor(m => m.ShippingPostalCode)
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-default" id="validateAddress">Validate Address</button>
+                    </div>
+                </div>
                 <div class="form-group">
-                @Html.LabelFor(m => m.ContactName, new { @class = "control-label" })
-                @Html.TextBoxFor(m => m.ContactName, new { @class = "form-control", placeholder = "Your Name" })
-                @Html.ValidationMessageFor(m => m.ContactName)
-            </div>
-
-            @*<div class="form-group">
-                @Html.LabelFor(m => m.ContactEmail, new { @class = "control-label" })
-                @Html.TextBoxFor(m => m.ContactEmail, new { @class = "form-control", placeholder = "Your Email Address" })
-                @Html.ValidationMessageFor(m => m.ContactEmail)
-            </div>*@
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.ShippingAddress, new { @class = "control-label" })
-                @Html.TextBoxFor(m => m.ShippingAddress, new { @class = "form-control", placeholder = "Address" })
-                @Html.ValidationMessageFor(m => m.ShippingAddress)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.ShippingCity, new { @class = "control-label" })
-                @Html.TextBoxFor(m => m.ShippingCity, new { @class = "form-control", placeholder = "City" })
-                @Html.ValidationMessageFor(m => m.ShippingCity)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.ShippingState, new { @class = "control-label" })
-                @Html.TextBoxFor(m => m.ShippingState, new { @class = "form-control", placeholder = "State" })
-                @Html.ValidationMessageFor(m => m.ShippingState)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.ShippingPostalCode, new { @class = "control-label" })
-                @Html.TextBoxFor(m => m.ShippingPostalCode, new { @class = "form-control", placeholder = "Zip Code" })
-                @Html.ValidationMessageFor(m => m.ShippingPostalCode)
-            </div>
-
-            <div class="form-group">
-                <button class="btn btn-default" id="validateAddress">Validate Address</button>
-            </div>
+                    @Html.LabelFor(m => m.CreditCardNumber, new { @class = "control-label" })
+                    @Html.TextBoxFor(m => m.CreditCardNumber, new { @class = "form-control", placeholder = "0000000000000000" })
+                    @Html.ValidationMessageFor(m => m.CreditCardNumber)
                 </div>
-            <div class="form-group">
-                @Html.LabelFor(m => m.CreditCardNumber, new { @class = "control-label" })
-                @Html.TextBoxFor(m => m.CreditCardNumber, new { @class = "form-control", placeholder = "0000000000000000" })
-                @Html.ValidationMessageFor(m => m.CreditCardNumber)
-            </div>
 
-            <div class="form-group">
-                @Html.LabelFor(m => m.CardholderName, new { @class = "control-label" })
-                @Html.TextBoxFor(m => m.CardholderName, new { @class = "form-control", placeholder = "John Smith" })
-                @Html.ValidationMessageFor(m => m.CardholderName)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.CVV, new { @class = "control-label" })
-                @Html.TextBoxFor(m => m.CVV, new { @class = "form-control", placeholder = "000" })
-                @Html.ValidationMessageFor(m => m.CVV)
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(m => m.ExpirationMonth, new { @class = "control-label" })
-                <div class="form-inline">
-                    @Html.DropDownListFor(m => m.ExpirationMonth, months, new { @class = "form-control" })
-                    @Html.DropDownListFor(m => m.ExpirationYear, years, new { @class = "form-control" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.CardholderName, new { @class = "control-label" })
+                    @Html.TextBoxFor(m => m.CardholderName, new { @class = "form-control", placeholder = "John Smith" })
+                    @Html.ValidationMessageFor(m => m.CardholderName)
                 </div>
-            </div>
 
-            <input type="submit" class="btn btn-primary" />
-
-        }
-    
-        
-
-    <div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="addressModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Please select your corrected address</h4>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.CVV, new { @class = "control-label" })
+                    @Html.TextBoxFor(m => m.CVV, new { @class = "form-control", placeholder = "000" })
+                    @Html.ValidationMessageFor(m => m.CVV)
                 </div>
-                <div class="modal-body" id="addressModalBody">
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ExpirationMonth, new { @class = "control-label" })
+                    <div class="form-inline">
+                        @Html.DropDownListFor(m => m.ExpirationMonth, months, new { @class = "form-control" })
+                        @Html.DropDownListFor(m => m.ExpirationYear, years, new { @class = "form-control" })
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="updateAddress">Save changes</button>
+
+                <input type="submit" class="btn btn-primary" />
+
+            }
+        </div>
+
+
+        <div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="addressModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Please select your corrected address</h4>
+                    </div>
+                    <div class="modal-body" id="addressModalBody">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="updateAddress">Save changes</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@section Scripts{
-    @Scripts.Render("~/bundles/jqueryval")
-    <script type="text/javascript">
+    
+        
+    
+
+    @section Scripts{
+        @Scripts.Render("~/bundles/jqueryval")
+        <script type="text/javascript">
         var addresseses;
         $("document").ready(function () {
             $("#addressId").change(this, function () {
@@ -424,5 +407,6 @@
         })
 
         var addresses = JSON.parse('@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Addresses))');
-    </script>
-}
+        </script>
+    }
+

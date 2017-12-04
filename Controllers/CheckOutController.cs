@@ -39,7 +39,7 @@ namespace OnlineStore.Controllers
             details.Hour = details.CurrentCart.Time;
             details.Month = details.CurrentCart.Month;
             details.AMPM = details.CurrentCart.AMPM;
-            details.CurrentCart.Date = details.Date;
+            details.Date = details.CurrentCart.Date;
             
 
             details.PriceModifer = details.CurrentCart.Recurrence.Price_Multiplier;

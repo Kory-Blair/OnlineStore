@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -175,6 +176,30 @@ namespace OnlineStore.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
-       
+        [HttpPost]
+        public ActionResult ValidateAddress(string street, string city, string state, string zip)
+        {
+            string authId = ConfigurationManager.AppSettings["SmartyStreets.AuthID"];
+            string authToken = ConfigurationManager.AppSettings["SmartyStreets.AuthToken"];
+            SmartyStreets.ClientBuilder clientBuilder = new SmartyStreets.ClientBuilder(authId, authToken);
+            var client = clientBuilder.BuildUsStreetApiClient();
+            SmartyStreets.USStreetApi.Lookup lookup = new SmartyStreets.USStreetApi.Lookup
+            {
+                City = city,
+                ZipCode = zip,
+                Street = street,
+                State = state
+            };
+
+            client.Send(lookup);
+
+            return Json(lookup.Result.Select(x => new
+            {
+                street = x.DeliveryLine1,
+                city = x.Components.CityName,
+                state = x.Components.State,
+                zip = x.Components.ZipCode + "-" + x.Components.Plus4Code
+            }));
+        }
     }
 }

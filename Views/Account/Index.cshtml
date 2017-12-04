@@ -2,19 +2,25 @@
 @{
     ViewBag.Title = "Index";
 }
-@if(ViewBag.Message != false)
-
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-success">
+        @ViewBag.Message
+    </div>
+}
 @using (Html.BeginForm())
 {
-    <div>
-        @Html.LabelFor(m => m.FirstName)
-        @Html.TextBoxFor(m => m.FirstName)
+    <div class="form-group">
+        @Html.LabelFor(m => m.FirstName, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
     </div>
-    <div>
-        @Html.LabelFor(m => m.LastName)
-        @Html.TextBoxFor(m => m.LastName)
+    <div class="form-group">
+        @Html.LabelFor(m => m.LastName, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
     </div>
     @Html.HiddenFor(m => m.Id)
-    <input type="submit" value="Save Changes" />
+    <input type="submit" value="Save Changes" class="btn btn-primary" />
 }
-<h2>Index</h2>
+@Html.ActionLink("Manage Saved Addresses", "Addresses", null, new { @class = "btn btn-default" })
+
+@Html.ActionLink("Manage Saved Credit Cards", "CreditCards", null, new { @class = "btn btn-default" })

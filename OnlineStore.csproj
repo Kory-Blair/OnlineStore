@@ -267,14 +267,20 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\angel.jpg" />
+    <Content Include="Images\apes.jpg" />
     <Content Include="Images\bucket.jpg" />
     <Content Include="Images\crying.jpg" />
+    <Content Include="Images\Cubs.jpg" />
     <Content Include="Images\earthonfire.jpg" />
+    <Content Include="Images\meteor.jpg" />
+    <Content Include="Images\mushroomcloud.jpg" />
     <Content Include="Images\pizzaandbeer.jpg" />
     <Content Include="Images\puppies.jpg" />
     <Content Include="Images\shout.jpg" />
     <Content Include="Images\slap.jpg" />
     <Content Include="Images\welcometohell.jpg" />
+    <Content Include="Images\zombies.jpg" />
     <Content Include="Models\OnlineStoreModels.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>OnlineStoreModels.Context.cs</LastGenOutput>
@@ -350,6 +356,7 @@
     <Content Include="Views\Account\ForgotPasswordSent.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\Addresses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
