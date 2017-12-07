@@ -270,7 +270,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="ignored.html" />
     <Content Include="Images\angel.jpg" />
     <Content Include="Images\apes.jpg" />
     <Content Include="Images\bucket.jpg" />

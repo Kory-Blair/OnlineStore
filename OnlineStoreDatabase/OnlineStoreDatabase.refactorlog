@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="133371a5-771b-4b1b-bb2e-eeeb4d88d9d6" ChangeDateTime="11/13/2017 22:29:24">
+    <Property Name="ElementName" Value="[dbo].[ServiceRecurrence].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ServiceRecurrence]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ServiceID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="71d653e5-2945-4870-9109-c9aa75da2e0f" ChangeDateTime="11/14/2017 18:55:45">
+    <Property Name="ElementName" Value="[dbo].[FK_Purchase_ToTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Purchase]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_Purchase_Recurrence]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9b081551-39a7-43aa-93d4-fa1802343a9d" ChangeDateTime="11/14/2017 19:42:59">
+    <Property Name="ElementName" Value="[dbo].[FK_Purchase_ToTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Purchase]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_Purchase_Recurrence]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="bab82617-fa17-49eb-be0e-89b073a97fe1" ChangeDateTime="11/14/2017 19:43:35">
+    <Property Name="ElementName" Value="[dbo].[FK_Purchase_Service]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Purchase]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_PurchaseService]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b5089f6f-b3f9-43e0-a86e-0500f9dfb917" ChangeDateTime="11/14/2017 19:43:47">
+    <Property Name="ElementName" Value="[dbo].[FK_PurchaseService]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Purchase]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_Purchase_Service]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="367bf7c8-e583-4fc1-bee6-8e96382f1388" ChangeDateTime="11/14/2017 19:47:52">
+    <Property Name="ElementName" Value="[dbo].[FK_Purchase_Service]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Purchase]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_PurchaseService]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="25ea515f-0745-4204-90ae-1aac1d49cf72" ChangeDateTime="11/14/2017 20:09:52">
+    <Property Name="ElementName" Value="[dbo].[Service].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Service]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="named" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="6f9cc7a8-e379-426f-a298-92954a7cafc3" ChangeDateTime="11/14/2017 20:09:58">
+    <Property Name="ElementName" Value="[dbo].[Service].[named]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Service]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Id" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4642cb32-e775-4394-8a5a-ce02fbf84ba5" ChangeDateTime="11/17/2017 21:29:51">
+    <Property Name="ElementName" Value="[dbo].[Recurrence].[PurchaseId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Recurrence]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Recurrence_Purchase" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f190044c-2fff-4fc5-8802-55594733c25f" ChangeDateTime="12/01/2017 01:46:35">
+    <Property Name="ElementName" Value="[dbo].[Purchase].[months]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Purchase]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Month" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="466f4bdf-c5ee-49c5-97f2-06b77d3b72ec" ChangeDateTime="12/01/2017 01:46:38">
+    <Property Name="ElementName" Value="[dbo].[Purchase].[date]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Purchase]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Date" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3a7da087-0589-4845-bbf4-0959befeec51" ChangeDateTime="12/01/2017 01:46:48">
+    <Property Name="ElementName" Value="[dbo].[Purchase].[day]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Purchase]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value=" Day of the Week" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0478e724-000d-4840-b3ba-1b81fac49903" ChangeDateTime="12/01/2017 01:46:53">
+    <Property Name="ElementName" Value="[dbo].[Purchase].[hour]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Purchase]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Time" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0838fdd1-75ee-4cbb-9cb5-d675f5bc0f2d" ChangeDateTime="12/01/2017 02:56:21">
+    <Property Name="ElementName" Value="[dbo].[Purchase].[ Day of the Week]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Purchase]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Day of the Week" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4622114a-a664-49fe-a22e-79b060b4ea25" ChangeDateTime="12/01/2017 02:58:27">
+    <Property Name="ElementName" Value="[dbo].[Purchase].[Date]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Purchase]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value=" Date" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4e774304-6224-43b9-9c0e-cba3b1e50dbd" ChangeDateTime="12/01/2017 03:04:33">
+    <Property Name="ElementName" Value="[dbo].[Purchase].[ Date]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Purchase]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Date" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="18996f04-5c30-48ac-aa59-3ef9b16dfe80" ChangeDateTime="12/01/2017 19:19:24">
+    <Property Name="ElementName" Value="[dbo].[Purchase].[Day of the Week]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Purchase]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Day" />
+  </Operation>
+</Operations>
