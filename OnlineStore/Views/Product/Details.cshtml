@@ -1,0 +1,73 @@
+﻿@model OnlineStore.Models.Service
+
+@{
+    ViewBag.Title = "Product Details";
+}
+
+<h2>Service Details</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <h4>@Html.DisplayFor(model => model.ShortDescription)</h4>
+            <hr />
+            <dl class="dl-horizontal">
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Price)
+                </dt>
+                
+                <dd>
+                    @((Model.Price ?? 0).ToString("C"))
+                </dd>
+                
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+                
+            </dl>
+                </div>
+
+        <div class="col-sm-6">
+            
+
+                <img class="img-circle" style="max-height:229px" src="@Model.Image" />
+            
+            
+        </div>
+    </div>
+</div>
+<div style="padding-left:300px;">
+    @using (Html.BeginForm("Index", "Product", FormMethod.Post, new { @class = "myClass" }))
+            {
+        <input name="id" type="hidden" value="@Model.Id" />
+
+                <input name="name" type="hidden" value="@Model.Name" />
+                <input name="price" type="hidden" value="@Model.Price" />
+                <input type="submit" class="btn btn-primary" value="Get This Product" />
+
+    }
+
+
+    <p style="margin-top: 15px; margin-left:12px;">
+        @Html.ActionLink("Back to Products", "Index")
+
+    </p>
+    <p>
+
+
+
+    </p>
+</div>
